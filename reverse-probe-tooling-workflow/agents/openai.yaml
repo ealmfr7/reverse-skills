@@ -1,0 +1,4 @@
+interface:
+  display_name: "Reverse Probe Tooling Workflow"
+  short_description: "Standardize Frida probes, analyzers, and run outputs."
+  default_prompt: "Use $reverse-probe-tooling-workflow to create standardized reverse engineering probes and analyzers."

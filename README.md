@@ -16,6 +16,7 @@ This repository collects reverse engineering skills for Codex-style agents.
 |---|---|
 | `reverse-investigation-workflow` | Creates structured case folders, metadata, artifact indexes, run logs, and migration rules for professional reversing investigations. |
 | `reverse-docs-workflow` | Organizes findings, hypotheses, decisions, experiments, runbooks, and reports with stable IDs, frontmatter, statuses, and indexes. |
+| `reverse-probe-tooling-workflow` | Standardizes Frida probes, Python analyzers, JSONL event schemas, run folders, redaction, and probe output indexes. |
 
 ### Android Static and Dynamic Analysis
 
