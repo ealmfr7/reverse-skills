@@ -1,0 +1,4 @@
+interface:
+  display_name: "Android Frida Hooking"
+  short_description: "Build Android Frida hooks for authorized analysis."
+  default_prompt: "Use $android-frida-hooking to create or adapt Frida hooks for an authorized Android app analysis."

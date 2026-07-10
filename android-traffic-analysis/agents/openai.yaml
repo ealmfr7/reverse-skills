@@ -1,0 +1,4 @@
+interface:
+  display_name: "Android Traffic Analysis"
+  short_description: "Capture and analyze authorized Android traffic."
+  default_prompt: "Use $android-traffic-analysis to capture and analyze traffic from an authorized Android app."

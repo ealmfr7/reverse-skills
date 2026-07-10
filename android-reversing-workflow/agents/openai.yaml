@@ -1,0 +1,4 @@
+interface:
+  display_name: "Android Reversing Workflow"
+  short_description: "Route Android reversing tasks to the right skills."
+  default_prompt: "Use $android-reversing-workflow to choose the right Android reversing workflow and skills."

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Android ARM64 Native Basics"
+  short_description: "Explain ARM64, JNI, offsets, and native hooks."
+  default_prompt: "Use $android-arm64-native-basics to understand ARM64 native Android reversing."

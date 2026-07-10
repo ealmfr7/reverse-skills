@@ -1,0 +1,4 @@
+interface:
+  display_name: "Ghidra Reverse Engineering"
+  short_description: "Automate native analysis with Ghidra."
+  default_prompt: "Use $rev-ghidra to analyze a native binary with Ghidra."

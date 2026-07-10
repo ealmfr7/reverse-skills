@@ -1,0 +1,4 @@
+interface:
+  display_name: "Android APK Patching"
+  short_description: "Patch, rebuild, align, sign, and test APKs."
+  default_prompt: "Use $android-apk-patching to patch and rebuild an authorized Android APK."

@@ -1,0 +1,4 @@
+interface:
+  display_name: "UDP Protocol Reverse Engineering"
+  short_description: "Analyze UDP pcaps, payloads, hooks, and replay labs."
+  default_prompt: "Use $udp-protocol-reverse-engineering to analyze an authorized UDP protocol capture or app."

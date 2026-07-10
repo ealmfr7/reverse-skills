@@ -1,0 +1,4 @@
+interface:
+  display_name: "Android Objection"
+  short_description: "Use Objection for authorized Android runtime exploration."
+  default_prompt: "Use $android-objection to explore an authorized Android app with Objection."

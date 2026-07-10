@@ -1,0 +1,4 @@
+interface:
+  display_name: "Web API Reverse Engineering"
+  short_description: "Map web APIs and rebuild clients"
+  default_prompt: "Use $web-api-reverse-engineering to analyze this web app traffic and build a compatible API client."

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Android Cross-Platform Reversing"
+  short_description: "Triage Flutter, React Native, Cordova, and Xamarin APKs."
+  default_prompt: "Use $android-cross-platform-reversing to triage a cross-platform Android APK."
