@@ -17,6 +17,9 @@ fi
 
 mkdir -p "$PLUGIN_DIR/skills"
 
+python3 "$ROOT_DIR/scripts/lint-skills.py"
+python3 "$ROOT_DIR/scripts/generate-tools-index.py" --check
+
 while IFS= read -r skill_dir; do
   rel="${skill_dir#./}"
   mkdir -p "$PLUGIN_DIR/skills/$rel"

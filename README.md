@@ -58,6 +58,8 @@ Enable Bash completion for the current shell:
 source <(reverse-skill completion bash)
 ```
 
+See the generated tool inventory in `TOOLS.md`.
+
 ### Investigation Operations
 
 | Skill | Purpose |
@@ -125,10 +127,12 @@ Run the local test suite:
 python3 -m unittest discover -s tests -v
 ```
 
-Validate skill metadata:
+Validate skill metadata and generated indexes:
 
 ```bash
 reverse-skill doctor
+python3 scripts/lint-skills.py
+python3 scripts/generate-tools-index.py --check
 ```
 
 Third-party skill sources are tracked in `THIRD_PARTY_SKILLS.md`.

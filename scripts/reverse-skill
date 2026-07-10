@@ -70,6 +70,14 @@ def normalize_tool_name(name: str) -> list[str]:
     return [name, f"{name}.py", f"{name}.sh", f"{name}.js"]
 
 
+def is_public_tool(path: Path) -> bool:
+    if "__pycache__" in path.parts or path.suffix == ".pyc" or path.name.startswith("."):
+        return False
+    if path.name == "common.py":
+        return False
+    return True
+
+
 def resolve_tool(skill: str, tool: str) -> Path:
     skills = skill_dirs()
     if skill not in skills:
@@ -78,11 +86,11 @@ def resolve_tool(skill: str, tool: str) -> Path:
     scripts = skills[skill] / "scripts"
     for candidate in normalize_tool_name(tool):
         path = scripts / candidate
-        if path.exists() and path.is_file():
+        if path.exists() and path.is_file() and is_public_tool(path):
             return path
     available = []
     if scripts.exists():
-        for path in sorted(item for item in scripts.rglob("*") if item.is_file()):
+        for path in sorted(item for item in scripts.rglob("*") if item.is_file() and is_public_tool(item)):
             available.append(str(path.relative_to(scripts)))
     raise SystemExit(
         f"Unknown tool for {skill}: {tool}\nAvailable tools: {', '.join(available)}"
@@ -102,7 +110,7 @@ def list_tools(skill: str) -> int:
     scripts = skills[skill] / "scripts"
     if not scripts.exists():
         return 0
-    for path in sorted(item for item in scripts.rglob("*") if item.is_file()):
+    for path in sorted(item for item in scripts.rglob("*") if item.is_file() and is_public_tool(item)):
         rel = path.relative_to(scripts)
         if path.suffix in {".py", ".sh", ".js"}:
             print(str(rel.with_suffix("")))

@@ -26,6 +26,18 @@ class ReverseSkillCliTests(unittest.TestCase):
         self.assertEqual(result.returncode, 0, result.stderr)
         self.assertIn("verify-attestation-report", result.stdout)
 
+    def test_list_tools_hides_internal_helpers_and_caches(self):
+        result = subprocess.run(
+            [str(CLI), "list", "reverse-docs-workflow"],
+            text=True,
+            capture_output=True,
+        )
+
+        self.assertEqual(result.returncode, 0, result.stderr)
+        self.assertIn("init-docs", result.stdout)
+        self.assertNotIn("common", result.stdout)
+        self.assertNotIn("__pycache__", result.stdout)
+
     def test_resolves_paths_without_cache_paths(self):
         result = subprocess.run(
             [str(CLI), "path", "android-device-attestation-lab", "verify-attestation-report"],
