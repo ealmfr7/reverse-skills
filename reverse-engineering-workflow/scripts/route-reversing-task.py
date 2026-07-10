@@ -26,6 +26,25 @@ RULES = [
         "Create or reason about runtime hooks.",
     ),
     (
+        "android-anti-analysis-and-obfuscation",
+        {
+            "root",
+            "emulator",
+            "vmos",
+            "anti-debug",
+            "anti-frida",
+            "pinning",
+            "attestation",
+            "integrity",
+            "safetynet",
+            "keymaster",
+            "obfuscation",
+            "packed",
+        },
+        set(),
+        "Classify Android anti-analysis, attestation, pinning, packing, and obfuscation protections.",
+    ),
+    (
         "web-api-reverse-engineering",
         {"web", "url", "har", "javascript", "js", "bundle", "graphql", "websocket", "devtools", "curl", "api", "endpoint"},
         {".har", ".html", ".js", ".map"},
@@ -81,6 +100,7 @@ def route(goal: str, artifacts: list[str]) -> dict:
         "web-api-reverse-engineering",
         "udp-protocol-reverse-engineering",
         "android-frida-hooking",
+        "android-anti-analysis-and-obfuscation",
         "rev-ghidra",
         "reverse-probe-tooling-workflow",
         "reverse-docs-workflow",
@@ -101,6 +121,8 @@ def first_steps(skills: list[str]) -> list[str]:
         steps.append("Create/select case and record scope, target, artifacts, and authorization.")
     if "android-reversing-workflow" in skills:
         steps.append("Fingerprint APK/app and choose static, dynamic, traffic, or native route.")
+    if "android-anti-analysis-and-obfuscation" in skills:
+        steps.append("Scan for root/emulator/Frida/pinning/attestation/packing signals and plan comparison runs.")
     if "web-api-reverse-engineering" in skills:
         steps.append("Fingerprint URL/HAR/JS and build endpoint inventory.")
     if "udp-protocol-reverse-engineering" in skills:

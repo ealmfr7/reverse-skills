@@ -14,7 +14,7 @@ class ReverseEngineeringWorkflowTests(unittest.TestCase):
             [
                 "python3",
                 str(ROUTE),
-                "Analyze APK, hook Frida login, inspect UDP media traffic, and produce findings report",
+                "Analyze APK, hook Frida login, inspect UDP media traffic, check attestation and root detection, and produce findings report",
                 "--artifact",
                 "app.apk",
                 "--artifact",
@@ -32,6 +32,7 @@ class ReverseEngineeringWorkflowTests(unittest.TestCase):
         self.assertIn("reverse-investigation-workflow", skills)
         self.assertIn("android-reversing-workflow", skills)
         self.assertIn("android-frida-hooking", skills)
+        self.assertIn("android-anti-analysis-and-obfuscation", skills)
         self.assertIn("udp-protocol-reverse-engineering", skills)
         self.assertIn("reverse-docs-workflow", skills)
         self.assertIn("reverse-probe-tooling-workflow", skills)

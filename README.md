@@ -26,6 +26,7 @@ This repository collects reverse engineering skills for Codex-style agents.
 | `android-frida-hooking` | Frida setup, Java/Kotlin hooks, native hooks, ClassLoaders, OkHttp/WebView, crypto/storage templates. |
 | `rev-frida` | Third-party Frida reference for Java, ObjC, native hooks, memory, and module load timing. |
 | `rev-dex-dumper` | DEX memory dumping for packed or dynamically loaded Android apps. |
+| `android-anti-analysis-and-obfuscation` | Triage root/emulator/Frida detection, pinning, attestation, packing, obfuscation, and integrity checks. |
 | `android-apk-patching` | APK decode, patch, rebuild, zipalign, sign, install, and logcat workflows. |
 | `android-traffic-analysis` | Authorized Android HTTP/TLS proxy capture and traffic summaries. |
 | `android-objection` | Objection-based interactive runtime exploration. |

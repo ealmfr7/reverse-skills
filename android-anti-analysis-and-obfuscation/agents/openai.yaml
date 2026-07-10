@@ -1,0 +1,4 @@
+interface:
+  display_name: "Android Anti-Analysis and Obfuscation"
+  short_description: "Triage Android anti-analysis protections."
+  default_prompt: "Use $android-anti-analysis-and-obfuscation to triage APK anti-analysis and obfuscation signals."

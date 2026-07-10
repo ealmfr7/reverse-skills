@@ -5,6 +5,7 @@ Use this matrix to select child skills.
 | Evidence or Goal | Primary Skill | Support Skills |
 |---|---|---|
 | APK, XAPK, AAB, DEX, JADX, package name | `android-reversing-workflow` | `reverse-investigation-workflow` |
+| Root, emulator, Frida detection, pinning, attestation, packing, obfuscation | `android-anti-analysis-and-obfuscation` | `reverse-probe-tooling-workflow` |
 | Runtime hooks, Java methods, native functions | `android-frida-hooking` | `rev-frida`, `reverse-probe-tooling-workflow` |
 | URL, HAR, JS bundle, GraphQL, WebSocket | `web-api-reverse-engineering` | `reverse-docs-workflow` |
 | UDP, PCAP, datagrams, custom protocol | `udp-protocol-reverse-engineering` | `reverse-probe-tooling-workflow` |

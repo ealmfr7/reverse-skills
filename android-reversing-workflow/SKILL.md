@@ -16,6 +16,7 @@ owned systems, or defensive samples.
 | First-pass APK structure, endpoints, manifest, Java/Kotlin | `android-reverse-engineering` |
 | Need full Android workflow decision tree | this skill + `references/runbook.md` |
 | APK is packed or JADX shows only stub/loader | `rev-dex-dumper` |
+| Root/emulator/Frida detection, pinning, attestation, obfuscation | `android-anti-analysis-and-obfuscation` |
 | Runtime method/function observation | `android-frida-hooking`, `rev-frida` |
 | Quick interactive Frida exploration | `android-objection` |
 | Capture HTTP/TLS traffic | `android-traffic-analysis`, `web-api-reverse-engineering` |

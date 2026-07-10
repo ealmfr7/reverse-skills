@@ -26,6 +26,7 @@ Use `--json` when another script or report needs structured output.
 |---|---|
 | Any serious investigation with artifacts/runs/evidence | `reverse-investigation-workflow` |
 | Android APK/XAPK/AAB/JAR/AAR, mobile app static/dynamic analysis | `android-reversing-workflow` |
+| Root/emulator/Frida detection, pinning, attestation, packing, obfuscation | `android-anti-analysis-and-obfuscation` |
 | Frida hooks, runtime observation, Java/native methods | `android-frida-hooking`, `rev-frida`, `reverse-probe-tooling-workflow` |
 | Web URL, HAR, JS bundle, GraphQL, WebSocket, browser API flow | `web-api-reverse-engineering` |
 | UDP, PCAP, datagrams, QUIC/DTLS/custom binary protocol | `udp-protocol-reverse-engineering` |
@@ -47,6 +48,7 @@ Use `--json` when another script or report needs structured output.
 ## Routing Rules
 
 - If the user mentions an APK, package, Frida, JADX, DEX, `lib*.so`, or Android device, include `android-reversing-workflow`.
+- If the user mentions root/emulator/Frida detection, pinning, attestation, integrity, anti-debug, packing, or obfuscation, include `android-anti-analysis-and-obfuscation`.
 - If the user mentions URL, HAR, JavaScript bundle, GraphQL, WebSocket, DevTools, browser, curl, or API client, include `web-api-reverse-engineering`.
 - If the user mentions UDP, PCAP, datagrams, packets, QUIC, DTLS, `sendto`, `recvfrom`, or protocol reconstruction, include `udp-protocol-reverse-engineering`.
 - If the user mentions scripts, probes, Frida script cleanup, analyzer, event schema, JSONL, run output, or reusable tooling, include `reverse-probe-tooling-workflow`.
