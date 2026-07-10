@@ -10,6 +10,12 @@ This repository collects reverse engineering skills for Codex-style agents.
 |---|---|
 | `android-reversing-workflow` | Routes Android reversing goals to the right local skills and runbooks. |
 
+### Investigation Operations
+
+| Skill | Purpose |
+|---|---|
+| `reverse-investigation-workflow` | Creates structured case folders, metadata, artifact indexes, run logs, and migration rules for professional reversing investigations. |
+
 ### Android Static and Dynamic Analysis
 
 | Skill | Purpose |

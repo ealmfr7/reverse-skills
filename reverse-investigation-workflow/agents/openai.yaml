@@ -1,0 +1,4 @@
+interface:
+  display_name: "Reverse Investigation Workflow"
+  short_description: "Organize reverse engineering cases and evidence."
+  default_prompt: "Use $reverse-investigation-workflow to structure a reverse engineering investigation case."
