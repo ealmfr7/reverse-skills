@@ -1,0 +1,4 @@
+interface:
+  display_name: "Reverse Engineering Workflow"
+  short_description: "Route reversing work across skills."
+  default_prompt: "Use $reverse-engineering-workflow to choose the right reverse engineering skills and workflow."

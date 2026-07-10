@@ -8,6 +8,7 @@ This repository collects reverse engineering skills for Codex-style agents.
 
 | Skill | Purpose |
 |---|---|
+| `reverse-engineering-workflow` | Parent router for Android, web/API, UDP/protocol, native, docs, evidence, and probe tooling workflows. |
 | `android-reversing-workflow` | Routes Android reversing goals to the right local skills and runbooks. |
 
 ### Investigation Operations
