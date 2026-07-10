@@ -136,3 +136,4 @@ python3 scripts/generate-tools-index.py --check
 ```
 
 Third-party skill sources are tracked in `THIRD_PARTY_SKILLS.md`.
+Third-party MCP servers are tracked in `THIRD_PARTY_MCPS.md`.

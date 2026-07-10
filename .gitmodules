@@ -1,0 +1,3 @@
+[submodule "third_party/mobile-mcp"]
+	path = third_party/mobile-mcp
+	url = https://github.com/mobile-next/mobile-mcp.git
