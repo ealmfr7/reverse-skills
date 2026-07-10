@@ -30,13 +30,13 @@ Read `references/workflow.md` for commands and script patterns.
 Run Ghidra headless:
 
 ```bash
-bash scripts/ghidra-run-headless.sh libtarget.so /tmp/ghidra-projects TargetProject scripts/ghidra/export_functions.py
+reverse-skill rev-ghidra ghidra-run-headless libtarget.so /tmp/ghidra-projects TargetProject scripts/ghidra/export_functions.py
 ```
 
 Generate Frida offset hooks from a function export:
 
 ```bash
-python3 scripts/make-frida-offset-hooks.py functions.json --out hook-offsets.js
+reverse-skill rev-ghidra make-frida-offset-hooks functions.json --out hook-offsets.js
 ```
 
 Bundled Ghidra scripts:
@@ -48,7 +48,7 @@ Bundled Ghidra scripts:
 
 Local helper:
 
-- `scripts/make-frida-offset-hooks.py`: turns a Ghidra function JSON export into
+- `reverse-skill rev-ghidra make-frida-offset-hooks`: turns a Ghidra function JSON export into
   a Frida native hook template using `module.base.add(offset)`.
 
 ## Source Anchors

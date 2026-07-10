@@ -12,11 +12,11 @@ React Native, Cordova/Capacitor, Xamarin, Unity, or another framework.
 
 1. Fingerprint the APK by files, assets, native libs, package names, and strings:
    ```bash
-   python3 scripts/fingerprint-framework.py app.apk --json-out framework.json
+   reverse-skill android-cross-platform-reversing fingerprint-framework app.apk --json-out framework.json
    ```
 2. Extract framework assets when the fingerprint finds useful artifacts:
    ```bash
-   python3 scripts/extract-framework-assets.py app.apk --out extracted-framework
+   reverse-skill android-cross-platform-reversing extract-framework-assets app.apk --out extracted-framework
    ```
 3. Route by framework:
    - Flutter: inspect `libflutter.so`, `libapp.so`, assets, Dart snapshots.
@@ -31,11 +31,11 @@ Read `references/workflow.md`. For framework-specific notes, read:
 `references/flutter.md`, `references/react-native-hermes.md`,
 `references/cordova-capacitor.md`, or `references/xamarin.md`.
 
-## Script Outputs
+## Tool Outputs
 
-- `scripts/fingerprint-framework.py`: prints `FRAMEWORKS:<names>` and can write
+- `reverse-skill android-cross-platform-reversing fingerprint-framework`: prints `FRAMEWORKS:<names>` and can write
   JSON evidence with recommended next steps.
-- `scripts/extract-framework-assets.py`: extracts JS bundles, Hermes bytecode,
+- `reverse-skill android-cross-platform-reversing extract-framework-assets`: extracts JS bundles, Hermes bytecode,
   Cordova assets, Flutter assets/libs, and Unity IL2CPP metadata/libraries.
 
 ## Source Anchors

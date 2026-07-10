@@ -12,7 +12,7 @@ Use this skill when the problem is documentation order, not raw artifact storage
 Initialize documentation:
 
 ```bash
-python3 reverse-docs-workflow/scripts/init-docs.py \
+reverse-skill reverse-docs-workflow init-docs \
   --root . \
   --project "live protocol reconstruction"
 ```
@@ -20,7 +20,7 @@ python3 reverse-docs-workflow/scripts/init-docs.py \
 Create a numbered finding:
 
 ```bash
-python3 reverse-docs-workflow/scripts/new-finding.py docs \
+reverse-skill reverse-docs-workflow new-finding docs \
   "udp bootstrap uses dominant session" \
   --target likee \
   --case-id 2026-07-10-likee-live \
@@ -30,7 +30,7 @@ python3 reverse-docs-workflow/scripts/new-finding.py docs \
 Create a numbered decision:
 
 ```bash
-python3 reverse-docs-workflow/scripts/new-decision.py docs \
+reverse-skill reverse-docs-workflow new-decision docs \
   "prefer case folders over tmp" \
   --rationale "Reports need stable evidence paths."
 ```
@@ -38,7 +38,7 @@ python3 reverse-docs-workflow/scripts/new-decision.py docs \
 Mark stale docs superseded instead of deleting them:
 
 ```bash
-python3 reverse-docs-workflow/scripts/mark-superseded.py \
+reverse-skill reverse-docs-workflow mark-superseded \
   docs/findings/F-0001-old-route.md \
   --by F-0007 \
   --reason "Replaced by packet-level evidence."
@@ -47,8 +47,8 @@ python3 reverse-docs-workflow/scripts/mark-superseded.py \
 Index and validate:
 
 ```bash
-python3 reverse-docs-workflow/scripts/index-docs.py docs --json-out docs/docs-index.json
-python3 reverse-docs-workflow/scripts/lint-docs.py docs
+reverse-skill reverse-docs-workflow index-docs docs --json-out docs/docs-index.json
+reverse-skill reverse-docs-workflow lint-docs docs
 ```
 
 ## Canonical Layout

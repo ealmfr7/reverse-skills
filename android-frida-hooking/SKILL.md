@@ -13,7 +13,7 @@ Use this skill to guide Android runtime instrumentation with Frida.
    and target behavior.
 2. If setup is unknown, run:
    ```bash
-   bash scripts/check-frida-android.sh
+   reverse-skill android-frida-hooking check-frida-android
    ```
    Then read `references/setup.md`.
 3. Use static analysis first when possible: JADX/class names/logcat/errors give
@@ -50,9 +50,9 @@ frida -U -p 1234 -l hook.js
 Generate common hooks:
 
 ```bash
-python3 scripts/make-java-hook.py com.example.AuthManager login --overload java.lang.String,java.lang.String --stacktrace --out login-hook.js
-python3 scripts/make-native-hook.py libsign.so --export sign_payload --wait-load --out sign-hook.js
-python3 scripts/make-native-hook.py libsign.so --offset 0x1234 --wait-load --out offset-hook.js
+reverse-skill android-frida-hooking make-java-hook com.example.AuthManager login --overload java.lang.String,java.lang.String --stacktrace --out login-hook.js
+reverse-skill android-frida-hooking make-native-hook libsign.so --export sign_payload --wait-load --out sign-hook.js
+reverse-skill android-frida-hooking make-native-hook libsign.so --offset 0x1234 --wait-load --out offset-hook.js
 ```
 
 Copy or adapt templates from `scripts/templates/`:

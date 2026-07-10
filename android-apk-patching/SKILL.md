@@ -11,43 +11,43 @@ description: Patch, rebuild, align, sign, install, and verify Android APKs. Use 
    debug/test config, certificate trust test, or reproducible patch.
 2. Run dependency triage:
    ```bash
-   bash scripts/check-apk-patching-deps.sh
+   reverse-skill android-apk-patching check-apk-patching-deps
    ```
 3. Decode:
    ```bash
-   bash scripts/decode-apk.sh app.apk work/app
+   reverse-skill android-apk-patching decode-apk app.apk work/app
    ```
 4. Patch the smallest surface: manifest/resource XML first, smali only when
    required and understood.
    For CA/proxy testing:
    ```bash
-   python3 scripts/add-network-security-config.py work/app --trust-user-certs
+   reverse-skill android-apk-patching add-network-security-config work/app --trust-user-certs
    ```
 5. Rebuild:
    ```bash
-   bash scripts/make-test-keystore.sh test.keystore
-   bash scripts/rebuild-sign-apk.sh work/app build test.keystore androiddebugkey android
+   reverse-skill android-apk-patching make-test-keystore test.keystore
+   reverse-skill android-apk-patching rebuild-sign-apk work/app build test.keystore androiddebugkey android
    ```
 6. Install and capture logs:
    ```bash
-   bash scripts/install-and-logcat.sh build/app-signed.apk com.example
+   reverse-skill android-apk-patching install-and-logcat build/app-signed.apk com.example
    ```
 
 For details and troubleshooting, read `references/workflow.md`.
 
-## Script Outputs
+## Tool Outputs
 
-- `scripts/check-apk-patching-deps.sh`: reports required tools.
-- `scripts/decode-apk.sh <apk> <out-dir>`: decodes with apktool and prints
+- `reverse-skill android-apk-patching check-apk-patching-deps`: reports required tools.
+- `reverse-skill android-apk-patching decode-apk <apk> <out-dir>`: decodes with apktool and prints
   `DECODED:<out-dir>`.
-- `scripts/add-network-security-config.py <decoded-project>`: creates
+- `reverse-skill android-apk-patching add-network-security-config <decoded-project>`: creates
   `res/xml/network_security_config.xml` and updates the manifest application
   attribute.
-- `scripts/make-test-keystore.sh [keystore] [alias] [password]`: creates a lab
+- `reverse-skill android-apk-patching make-test-keystore [keystore] [alias] [password]`: creates a lab
   signing key.
-- `scripts/rebuild-sign-apk.sh <decoded-project> [out-dir] [keystore] [alias] [password]`:
+- `reverse-skill android-apk-patching rebuild-sign-apk <decoded-project> [out-dir] [keystore] [alias] [password]`:
   rebuilds, zipaligns, signs, verifies, and prints `SIGNED:<apk>`.
-- `scripts/install-and-logcat.sh <signed-apk> [filter]`: installs and starts
+- `reverse-skill android-apk-patching install-and-logcat <signed-apk> [filter]`: installs and starts
   logcat.
 
 ## Source Anchors

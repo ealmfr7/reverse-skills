@@ -12,7 +12,7 @@ Use this skill for the tooling layer between investigation cases and technical h
 Create a Frida Java probe scaffold:
 
 ```bash
-python3 reverse-probe-tooling-workflow/scripts/new-probe.py frida java likee-bootstrap \
+reverse-skill reverse-probe-tooling-workflow new-probe frida java likee-bootstrap \
   --out probes \
   --source frida.likee.bootstrap
 ```
@@ -20,7 +20,7 @@ python3 reverse-probe-tooling-workflow/scripts/new-probe.py frida java likee-boo
 Create a Frida native probe scaffold:
 
 ```bash
-python3 reverse-probe-tooling-workflow/scripts/new-probe.py frida native mediasdk-offsets \
+reverse-skill reverse-probe-tooling-workflow new-probe frida native mediasdk-offsets \
   --out probes \
   --source frida.likee.mediasdk
 ```
@@ -28,13 +28,13 @@ python3 reverse-probe-tooling-workflow/scripts/new-probe.py frida native mediasd
 Create a Python analyzer scaffold:
 
 ```bash
-python3 reverse-probe-tooling-workflow/scripts/new-analyzer.py udp-summary --out probes/python
+reverse-skill reverse-probe-tooling-workflow new-analyzer udp-summary --out probes/python
 ```
 
 Create a run folder:
 
 ```bash
-python3 reverse-probe-tooling-workflow/scripts/init-run.py runs dynamic-bootstrap \
+reverse-skill reverse-probe-tooling-workflow init-run runs dynamic-bootstrap \
   --case-id 2026-07-10-likee-live \
   --probe probes/frida/likee-bootstrap.js \
   --command "frida -U -f video.like -l probes/frida/likee-bootstrap.js"
@@ -43,8 +43,8 @@ python3 reverse-probe-tooling-workflow/scripts/init-run.py runs dynamic-bootstra
 Validate and index run output:
 
 ```bash
-python3 reverse-probe-tooling-workflow/scripts/lint-events.py runs/0001-dynamic-bootstrap/events.jsonl
-python3 reverse-probe-tooling-workflow/scripts/index-run.py runs/0001-dynamic-bootstrap
+reverse-skill reverse-probe-tooling-workflow lint-events runs/0001-dynamic-bootstrap/events.jsonl
+reverse-skill reverse-probe-tooling-workflow index-run runs/0001-dynamic-bootstrap
 ```
 
 ## Standard Layout

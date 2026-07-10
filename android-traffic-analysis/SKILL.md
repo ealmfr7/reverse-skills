@@ -11,7 +11,7 @@ description: Capture, inspect, and document Android app network traffic. Use whe
    GraphQL, WebSocket, TLS failure, or client reproduction.
 2. Run:
    ```bash
-   bash scripts/check-traffic-deps.sh
+   reverse-skill android-traffic-analysis check-traffic-deps
    ```
 3. Pick capture method:
    - Browser/WebView or normal HTTP: proxy with mitmproxy/Burp/HTTP Toolkit.
@@ -19,27 +19,27 @@ description: Capture, inspect, and document Android app network traffic. Use whe
    - Data encrypted before HTTP: use `android-frida-hooking` or app-layer hooks.
 4. Configure emulator/device proxy and install the test CA for the test device.
    ```bash
-   bash scripts/set-android-proxy.sh 10.0.2.2 8080
+   reverse-skill android-traffic-analysis set-android-proxy 10.0.2.2 8080
    ```
 5. Capture baseline action once, save flow/HAR, and document app state.
 6. Summarize capture:
    ```bash
-   python3 scripts/summarize-traffic.py capture.har --json-out traffic-summary.json
+   reverse-skill android-traffic-analysis summarize-traffic capture.har --json-out traffic-summary.json
    ```
 7. Correlate traffic with code using JADX or Frida hooks when needed.
 8. Clear proxy after the test:
    ```bash
-   bash scripts/clear-android-proxy.sh
+   reverse-skill android-traffic-analysis clear-android-proxy
    ```
 
 Read `references/workflow.md` for setup and troubleshooting.
 
-## Script Outputs
+## Tool Outputs
 
-- `scripts/check-traffic-deps.sh`: reports available capture tools.
-- `scripts/set-android-proxy.sh [host] [port]`: sets Android global HTTP proxy.
-- `scripts/clear-android-proxy.sh`: clears Android global HTTP proxy.
-- `scripts/summarize-traffic.py <capture.har|mitm.json>`: emits endpoint,
+- `reverse-skill android-traffic-analysis check-traffic-deps`: reports available capture tools.
+- `reverse-skill android-traffic-analysis set-android-proxy [host] [port]`: sets Android global HTTP proxy.
+- `reverse-skill android-traffic-analysis clear-android-proxy`: clears Android global HTTP proxy.
+- `reverse-skill android-traffic-analysis summarize-traffic <capture.har|mitm.json>`: emits endpoint,
   GraphQL, and WebSocket counts without secret values.
 
 ## Source Anchors

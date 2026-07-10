@@ -12,7 +12,7 @@ Use this skill after first-pass APK triage when the app appears to detect the la
 Scan a JADX/apktool/decompiled tree or extracted strings:
 
 ```bash
-python3 android-anti-analysis-and-obfuscation/scripts/scan-anti-analysis.py \
+reverse-skill android-anti-analysis-and-obfuscation scan-anti-analysis \
   path/to/decompiled-or-extracted \
   --json-out anti-analysis.json \
   --markdown-out anti-analysis.md

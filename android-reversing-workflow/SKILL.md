@@ -38,14 +38,14 @@ Read `references/runbook.md` for end-to-end flows.
 When an APK is available, fingerprint it before choosing a route:
 
 ```bash
-bash scripts/fingerprint-apk.sh app.apk > fingerprint.txt
-python3 scripts/route-android-task.py --fingerprint fingerprint.txt
+reverse-skill android-reversing-workflow fingerprint-apk app.apk > fingerprint.txt
+reverse-skill android-reversing-workflow route-android-task --fingerprint fingerprint.txt
 ```
 
 When only a text goal is available, route the description:
 
 ```bash
-python3 scripts/route-android-task.py "hook login and inspect OkHttp traffic"
+reverse-skill android-reversing-workflow route-android-task "hook login and inspect OkHttp traffic"
 ```
 
 For more detailed routing logic, read `references/decision-tree.md`. For

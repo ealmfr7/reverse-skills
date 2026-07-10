@@ -1,4 +1,5 @@
 import json
+import re
 import subprocess
 import tempfile
 import unittest
@@ -67,6 +68,21 @@ class ReverseSkillCliTests(unittest.TestCase):
         )
         self.assertIn(result.returncode, (0, 1))
         self.assertNotIn(".codex/plugins/cache", " ".join(result.args))
+
+    def test_skill_docs_prefer_stable_cli_for_bundled_tools(self):
+        direct_script_patterns = [
+            re.compile(r"\b(?:python3|bash)\s+scripts/[A-Za-z0-9_.-]+\.(?:py|sh)\b"),
+            re.compile(r"\b(?:python3|bash)\s+[A-Za-z0-9_.-]+/scripts/[A-Za-z0-9_.-]+\.(?:py|sh)\b"),
+        ]
+
+        offenders = []
+        for skill_doc in sorted(ROOT.glob("*/SKILL.md")):
+            text = skill_doc.read_text(encoding="utf-8")
+            for line_no, line in enumerate(text.splitlines(), start=1):
+                if any(pattern.search(line) for pattern in direct_script_patterns):
+                    offenders.append(f"{skill_doc.relative_to(ROOT)}:{line_no}:{line.strip()}")
+
+        self.assertEqual([], offenders)
 
 
 if __name__ == "__main__":

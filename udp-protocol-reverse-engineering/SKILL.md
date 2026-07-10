@@ -14,28 +14,28 @@ replay experiments.
    account/test environment, and replay plan.
 2. Capture or receive a PCAP:
    ```bash
-   bash scripts/capture-udp-tcpdump.sh any udp-capture.pcapng "udp"
+   reverse-skill udp-protocol-reverse-engineering capture-udp-tcpdump any udp-capture.pcapng "udp"
    ```
 3. Convert PCAP to UDP JSON:
    ```bash
-   bash scripts/pcap-to-udp-json.sh udp-capture.pcapng udp-packets.json "udp"
+   reverse-skill udp-protocol-reverse-engineering pcap-to-udp-json udp-capture.pcapng udp-packets.json "udp"
    ```
 4. Summarize flows and payload prefixes:
    ```bash
-   python3 scripts/udp-json-summary.py udp-packets.json --json-out udp-summary.json
-   python3 scripts/udp-payload-cluster.py udp-summary.json --prefix-bytes 4 --json-out udp-clusters.json
-   python3 scripts/udp-field-candidates.py udp-summary.json --json-out udp-fields.json
+   reverse-skill udp-protocol-reverse-engineering udp-json-summary udp-packets.json --json-out udp-summary.json
+   reverse-skill udp-protocol-reverse-engineering udp-payload-cluster udp-summary.json --prefix-bytes 4 --json-out udp-clusters.json
+   reverse-skill udp-protocol-reverse-engineering udp-field-candidates udp-summary.json --json-out udp-fields.json
    ```
 5. Correlate with runtime behavior:
    ```bash
-   python3 scripts/make-frida-udp-hooks.py --mode both --out udp-hooks.js
+   reverse-skill udp-protocol-reverse-engineering make-frida-udp-hooks --mode both --out udp-hooks.js
    frida -U com.example.app -l udp-hooks.js
    ```
 6. If payloads are custom binary, inspect lengths, magic bytes, counters,
    timestamps, endianness, compression, encryption, and checksums before replay.
 7. Replay against the selected test endpoint:
    ```bash
-   python3 scripts/replay-udp.py 127.0.0.1 9000 --hex 01020304
+   reverse-skill udp-protocol-reverse-engineering replay-udp 127.0.0.1 9000 --hex 01020304
    ```
 
 ## Reference Routing

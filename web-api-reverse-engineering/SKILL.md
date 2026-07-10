@@ -11,33 +11,33 @@ description: Analyze web applications to understand browser behavior, network tr
 2. Ask for available artifacts: URL, HAR file, DevTools export, curl command, browser session notes, JS bundle, API examples, or existing client code.
 3. Run the dependency checker when local analysis is needed:
    ```bash
-   bash scripts/check-deps.sh
+   reverse-skill web-api-reverse-engineering check-deps
    ```
 4. Fingerprint the target before choosing the scan path:
    ```bash
-   python3 scripts/fingerprint-web.py https://example.com --json-out fingerprint.json
+   reverse-skill web-api-reverse-engineering fingerprint-web https://example.com --json-out fingerprint.json
    ```
 5. Dump client-side assets when the user provides a website URL:
    ```bash
-   python3 scripts/dump-website-js.py https://example.com --out dumps/example
-   python3 scripts/scan-js-bundle.py dumps/example
+   reverse-skill web-api-reverse-engineering dump-website-js https://example.com --out dumps/example
+   reverse-skill web-api-reverse-engineering scan-js-bundle dumps/example
    ```
    For SPAs, runtime-injected scripts, or pages that need browser execution:
    ```bash
-   bash scripts/check-deps.sh
-   python3 scripts/dump-website-js.py https://example.com --out dumps/example --browser
+   reverse-skill web-api-reverse-engineering check-deps
+   reverse-skill web-api-reverse-engineering dump-website-js https://example.com --out dumps/example --browser
    ```
 6. Run fast triage before manual analysis:
    ```bash
-   python3 scripts/har-summary.py capture.har
-   python3 scripts/scan-js-bundle.py path/to/bundle-or-dir
+   reverse-skill web-api-reverse-engineering har-summary capture.har
+   reverse-skill web-api-reverse-engineering scan-js-bundle path/to/bundle-or-dir
    ```
 7. Produce structured artifacts:
    ```bash
-   python3 scripts/extract-endpoints.py dumps/example --base-url https://example.com --json-out endpoints.json --markdown-out endpoints.md
-   python3 scripts/extract-sourcemaps.py dumps/example --out extracted-sources --json-out sourcemaps.json
-   python3 scripts/analyze-graphql.py dumps/example --json-out graphql.json --markdown-out graphql.md
-   python3 scripts/build-report.py --fingerprint fingerprint.json --endpoints endpoints.json --graphql graphql.json --out report.md
+   reverse-skill web-api-reverse-engineering extract-endpoints dumps/example --base-url https://example.com --json-out endpoints.json --markdown-out endpoints.md
+   reverse-skill web-api-reverse-engineering extract-sourcemaps dumps/example --out extracted-sources --json-out sourcemaps.json
+   reverse-skill web-api-reverse-engineering analyze-graphql dumps/example --json-out graphql.json --markdown-out graphql.md
+   reverse-skill web-api-reverse-engineering build-report --fingerprint fingerprint.json --endpoints endpoints.json --graphql graphql.json --out report.md
    ```
 8. Preserve evidence before modifying behavior: capture baseline traffic and note account state, user role, timestamps, and environment.
 9. Build a request inventory: method, URL, headers, cookies, body, response schema, status codes, initiator, and feature that triggered it.
@@ -51,7 +51,7 @@ description: Analyze web applications to understand browser behavior, network tr
 - For choosing tooling, capture strategy, or proxy setup, read `references/tools.md`.
 - For implementing a compatible client, read `references/client-patterns.md`.
 - For scenario-specific paths after fingerprinting, read `references/runbooks.md`.
-- For deterministic triage, use `scripts/fingerprint-web.py` on URLs, `scripts/dump-website-js.py` on public/static pages, `scripts/har-summary.py` on HAR files, and `scripts/scan-js-bundle.py` on JavaScript bundles or source directories.
+- For deterministic triage, use `reverse-skill web-api-reverse-engineering fingerprint-web` on URLs, `reverse-skill web-api-reverse-engineering dump-website-js` on public/static pages, `reverse-skill web-api-reverse-engineering har-summary` on HAR files, and `reverse-skill web-api-reverse-engineering scan-js-bundle` on JavaScript bundles or source directories.
 
 ## Expected Outputs
 
@@ -65,19 +65,19 @@ Prefer concrete artifacts over loose notes:
 - Tests using recorded fixtures where possible.
 - Risk notes covering capture quality, rate limits, and fragility.
 
-## Script Outputs
+## Tool Outputs
 
-- `scripts/check-deps.sh`: reports required and optional local tools with `INSTALL_OPTIONAL:<tool>` lines for missing optional tools. It reports whether Playwright Python is available for `--browser` mode.
-- `scripts/fingerprint-web.py <url>`: detects framework/platform/API/protection signals and recommends a targeted next command path before dumping or scanning deeply.
-- `scripts/dump-website-js.py <url> --out <dir>`: saves the initial HTML, same-origin JavaScript bundles, available source maps, and a `manifest.json` for later analysis. Add `--browser` to execute the page with Playwright and capture runtime-loaded scripts. Use `--allow-cross-origin` only when cross-origin script collection is in scope.
-- `scripts/capture-playwright-flow.py <url> --out <har>`: captures browser-loaded traffic to HAR when runtime interactions matter and Playwright is available.
-- `scripts/har-summary.py <capture.har>`: prints hosts, methods/statuses, auth/header signals, likely API endpoints, GraphQL/WebSocket hints, and noisy third-party hosts.
-- `scripts/scan-js-bundle.py <file-or-dir>`: scans JavaScript/TypeScript/HTML assets for URL/path literals, fetch/axios calls, GraphQL operations, WebSocket usage, auth header names, and common framework hints.
-- `scripts/extract-endpoints.py <dump>`: writes structured endpoint inventory JSON/Markdown from dumped assets.
-- `scripts/extract-sourcemaps.py <dump> --out <dir>`: extracts embedded original sources from `.map` files.
-- `scripts/analyze-graphql.py <dump>`: consolidates GraphQL endpoints, operation names, subscriptions, and persisted-query signals from dumps and HAR JSON.
-- `scripts/build-report.py`: creates a Markdown report from fingerprint, endpoint, HAR, and GraphQL artifacts.
-- `scripts/generate-client-skeleton.py <endpoints.json>`: creates a conservative Python client skeleton from observed endpoints; review auth, CSRF, pagination, and request bodies before use.
+- `reverse-skill web-api-reverse-engineering check-deps`: reports required and optional local tools with `INSTALL_OPTIONAL:<tool>` lines for missing optional tools. It reports whether Playwright Python is available for `--browser` mode.
+- `reverse-skill web-api-reverse-engineering fingerprint-web <url>`: detects framework/platform/API/protection signals and recommends a targeted next command path before dumping or scanning deeply.
+- `reverse-skill web-api-reverse-engineering dump-website-js <url> --out <dir>`: saves the initial HTML, same-origin JavaScript bundles, available source maps, and a `manifest.json` for later analysis. Add `--browser` to execute the page with Playwright and capture runtime-loaded scripts. Use `--allow-cross-origin` only when cross-origin script collection is in scope.
+- `reverse-skill web-api-reverse-engineering capture-playwright-flow <url> --out <har>`: captures browser-loaded traffic to HAR when runtime interactions matter and Playwright is available.
+- `reverse-skill web-api-reverse-engineering har-summary <capture.har>`: prints hosts, methods/statuses, auth/header signals, likely API endpoints, GraphQL/WebSocket hints, and noisy third-party hosts.
+- `reverse-skill web-api-reverse-engineering scan-js-bundle <file-or-dir>`: scans JavaScript/TypeScript/HTML assets for URL/path literals, fetch/axios calls, GraphQL operations, WebSocket usage, auth header names, and common framework hints.
+- `reverse-skill web-api-reverse-engineering extract-endpoints <dump>`: writes structured endpoint inventory JSON/Markdown from dumped assets.
+- `reverse-skill web-api-reverse-engineering extract-sourcemaps <dump> --out <dir>`: extracts embedded original sources from `.map` files.
+- `reverse-skill web-api-reverse-engineering analyze-graphql <dump>`: consolidates GraphQL endpoints, operation names, subscriptions, and persisted-query signals from dumps and HAR JSON.
+- `reverse-skill web-api-reverse-engineering build-report`: creates a Markdown report from fingerprint, endpoint, HAR, and GraphQL artifacts.
+- `reverse-skill web-api-reverse-engineering generate-client-skeleton <endpoints.json>`: creates a conservative Python client skeleton from observed endpoints; review auth, CSRF, pagination, and request bodies before use.
 
 ## Practical Heuristics
 

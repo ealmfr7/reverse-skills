@@ -26,7 +26,7 @@ Read `references/workflow.md` for examples.
 Calculate offsets and runtime addresses:
 
 ```bash
-python3 scripts/offset-math.py --image-base 0x100000 --entry 0x101234 --module-base 0x7a00000000
+reverse-skill android-arm64-native-basics offset-math --image-base 0x100000 --entry 0x101234 --module-base 0x7a00000000
 ```
 
 Read focused references as needed:
