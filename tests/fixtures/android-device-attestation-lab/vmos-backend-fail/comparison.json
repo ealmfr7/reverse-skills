@@ -1,0 +1,17 @@
+{
+  "differences": {
+    "backendStrict": {
+      "left": true,
+      "right": false
+    },
+    "signatureValid": {
+      "left": true,
+      "right": true
+    }
+  },
+  "leftLabel": "physical",
+  "rightLabel": "vmos",
+  "nextSteps": [
+    "treat key possession and backend trust as separate claims"
+  ]
+}

@@ -68,6 +68,24 @@ python3 android-device-attestation-lab/scripts/verify-attestation-report.py \
   --json-out cases/<case-id>/runs/0001-physical-attestation-baseline/verification.json
 ```
 
+Model backend registration/signature trust locally:
+
+```bash
+python3 android-device-attestation-lab/scripts/attestation-backend-lab.py issue-nonce \
+  --state cases/<case-id>/backend-state.json \
+  --device-id physical-1
+```
+
+Render a Markdown report:
+
+```bash
+python3 android-device-attestation-lab/scripts/attestation-report.py \
+  --summary cases/<case-id>/runs/0002-comparison-attestation/attestation-summary.json \
+  --verification cases/<case-id>/runs/0002-comparison-attestation/verification.json \
+  --comparison cases/<case-id>/runs/0002-comparison-attestation/attestation-comparison.json \
+  --out cases/<case-id>/reports/attestation-report.md
+```
+
 ## Workflow
 
 1. Create/select a case with `reverse-investigation-workflow`.

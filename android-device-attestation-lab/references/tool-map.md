@@ -13,13 +13,14 @@ case scripts.
 | `compare-attestation-runs.py` | Compares two run folders for chain, security level, boot state, root match, backend policy, and signature differences. | Offline only; fixture-tested. |
 | `parse-android-key-attestation.py` | Parses normalized Android Key Attestation fields, chain metadata, root-of-trust fields, and certificate fingerprints from report JSON. | Offline only; fixture-tested. |
 | `verify-attestation-report.py` | Verifies explicit policy checks for challenge, chain, security level, boot state, exact root, and SPKI root evidence. | Keeps key possession and backend trust separate. |
+| `attestation-backend-lab.py` | Models nonce, registration, challenge, synthetic signing, and signature verification against backend trust state. | Local synthetic state only. |
+| `attestation-root-diff.py` | Compares local root bytes and optional SPKI digests against trusted roots. | Keeps exact root and SPKI match separate. |
+| `attestation-report.py` | Renders Markdown from summary, verification, and comparison JSON artifacts. | Report generator only; no new claims. |
 
 ## Candidate Tools To Add Later
 
 | Candidate | Role | Acceptance rule |
 |---|---|---|
-| `attestation-backend-lab.py` | Local nonce/register/signature backend model. | Must use synthetic local state only. |
-| `attestation-root-diff.py` | Compare local attestation root against trusted root material. | Must preserve source timestamps and match type. |
 | `attestation-root-source-probe.py` | Search device/local images for root certificate material. | Must bound pulls/scans and default to metadata/hashes. |
 | `attestation-runtime-trace-summary.py` | Summarize strace/logcat/Frida runtime evidence. | Must consume offline input files and redact sensitive values. |
 | `attestation-native-static-probe.py` | Scan native files for keymaster/attestation strings and symbols. | Must be static-only and path-bounded. |
@@ -33,6 +34,8 @@ case scripts.
 4. `compare-attestation-runs.py`: fixture-tested run comparison.
 5. `parse-android-key-attestation.py`: normalized parser.
 6. `verify-attestation-report.py`: explicit offline policy verification.
-7. backend nonce/register/signature lab model.
-8. root diff/source probes.
-9. KeyStore/keymaster Frida probes using the probe tooling event schema.
+7. `attestation-backend-lab.py`: backend nonce/register/signature lab model.
+8. `attestation-root-diff.py`: exact root and SPKI comparison.
+9. `attestation-report.py`: Markdown reporting.
+10. root source probes.
+11. KeyStore/keymaster Frida probes using the probe tooling event schema.

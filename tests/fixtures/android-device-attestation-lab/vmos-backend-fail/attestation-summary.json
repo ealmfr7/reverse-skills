@@ -1,0 +1,17 @@
+{
+  "artifactCount": 4,
+  "nextSteps": [
+    "compare against a known-good physical-device run"
+  ],
+  "present": [
+    "env-probe",
+    "verification",
+    "flow-result",
+    "root-diff"
+  ],
+  "signals": [
+    "attestation-chain-present",
+    "backend-strict-failed",
+    "challenge-signature-valid"
+  ]
+}

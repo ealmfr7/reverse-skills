@@ -1,0 +1,12 @@
+{
+  "checks": {
+    "attestationSecurityLevel": "Software",
+    "deviceLocked": true,
+    "keymasterSecurityLevel": "Software",
+    "verifiedBootState": "Verified"
+  },
+  "key_attestation": {
+    "chain_length": 2,
+    "chain_present": true
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "checks": {
+    "attestationSecurityLevel": "TrustedEnvironment",
+    "deviceLocked": false,
+    "keymasterSecurityLevel": "TrustedEnvironment",
+    "verifiedBootState": "Orange"
+  },
+  "key_attestation": {
+    "chain_length": 4,
+    "chain_present": true
+  }
+}

@@ -13,6 +13,9 @@ ENV_CAPTURE = SKILL / "scripts" / "android-env-capture.py"
 COMPARE = SKILL / "scripts" / "compare-attestation-runs.py"
 PARSE = SKILL / "scripts" / "parse-android-key-attestation.py"
 VERIFY = SKILL / "scripts" / "verify-attestation-report.py"
+BACKEND = SKILL / "scripts" / "attestation-backend-lab.py"
+ROOT_DIFF = SKILL / "scripts" / "attestation-root-diff.py"
+REPORT = SKILL / "scripts" / "attestation-report.py"
 ROUTE = ROOT / "reverse-engineering-workflow" / "scripts" / "route-reversing-task.py"
 FIXTURES = ROOT / "tests" / "fixtures" / "android-device-attestation-lab"
 
@@ -195,6 +198,139 @@ class AndroidDeviceAttestationLabTests(unittest.TestCase):
             self.assertIn("attestation security level mismatch", data["policy"]["backendStrict"]["reasons"])
             self.assertIn("device is not locked", data["policy"]["backendStrict"]["reasons"])
 
+    def test_backend_lab_models_register_and_sign_flow(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            state = Path(tmp) / "backend-state.json"
+            nonce = subprocess.run(
+                ["python3", str(BACKEND), "issue-nonce", "--state", str(state), "--device-id", "lab-device"],
+                text=True,
+                capture_output=True,
+            )
+            self.assertEqual(nonce.returncode, 0, nonce.stderr)
+            nonce_data = json.loads(nonce.stdout)
+            self.assertIn("nonce", nonce_data)
+
+            register = subprocess.run(
+                [
+                    "python3",
+                    str(BACKEND),
+                    "register",
+                    "--state",
+                    str(state),
+                    "--device-id",
+                    "lab-device",
+                    "--verification",
+                    str(FIXTURES / "physical-pass" / "verification.json"),
+                    "--key-id",
+                    "synthetic-key",
+                    "--secret",
+                    "lab-secret",
+                ],
+                text=True,
+                capture_output=True,
+            )
+            self.assertEqual(register.returncode, 0, register.stderr)
+            self.assertTrue(json.loads(register.stdout)["registered"])
+
+            challenge = subprocess.run(
+                ["python3", str(BACKEND), "issue-challenge", "--state", str(state), "--device-id", "lab-device"],
+                text=True,
+                capture_output=True,
+            )
+            self.assertEqual(challenge.returncode, 0, challenge.stderr)
+            challenge_data = json.loads(challenge.stdout)
+
+            sign = subprocess.run(
+                [
+                    "python3",
+                    str(BACKEND),
+                    "sign",
+                    "--challenge",
+                    challenge_data["challenge"],
+                    "--secret",
+                    "lab-secret",
+                ],
+                text=True,
+                capture_output=True,
+            )
+            self.assertEqual(sign.returncode, 0, sign.stderr)
+            signature = json.loads(sign.stdout)["signature"]
+
+            verify = subprocess.run(
+                [
+                    "python3",
+                    str(BACKEND),
+                    "verify-signature",
+                    "--state",
+                    str(state),
+                    "--device-id",
+                    "lab-device",
+                    "--signature",
+                    signature,
+                ],
+                text=True,
+                capture_output=True,
+            )
+            self.assertEqual(verify.returncode, 0, verify.stderr)
+            verify_data = json.loads(verify.stdout)
+            self.assertTrue(verify_data["signatureValid"])
+            self.assertTrue(verify_data["backendTrusted"])
+
+    def test_root_diff_and_report_generator_use_fixtures(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            out_dir = Path(tmp)
+            root_diff = out_dir / "root-diff.json"
+            report_md = out_dir / "report.md"
+            result = subprocess.run(
+                [
+                    "python3",
+                    str(ROOT_DIFF),
+                    "--local-root",
+                    str(FIXTURES / "roots" / "local-root.bin"),
+                    "--trusted-root",
+                    str(FIXTURES / "roots" / "trusted-root.bin"),
+                    "--trusted-root",
+                    str(FIXTURES / "roots" / "spki-match-root.bin"),
+                    "--local-spki-sha256",
+                    "spki-fixture-match",
+                    "--trusted-spki-sha256",
+                    "trusted-root:spki-fixture-other",
+                    "--trusted-spki-sha256",
+                    "spki-match-root:spki-fixture-match",
+                    "--json-out",
+                    str(root_diff),
+                ],
+                text=True,
+                capture_output=True,
+            )
+            self.assertEqual(result.returncode, 0, result.stderr)
+            diff_data = json.loads(root_diff.read_text(encoding="utf-8"))
+            self.assertFalse(diff_data["rootComparison"]["exactGoogleRootMatch"])
+            self.assertTrue(diff_data["rootComparison"]["spkiGoogleRootMatch"])
+
+            result = subprocess.run(
+                [
+                    "python3",
+                    str(REPORT),
+                    "--summary",
+                    str(FIXTURES / "vmos-backend-fail" / "attestation-summary.json"),
+                    "--verification",
+                    str(FIXTURES / "vmos-backend-fail" / "verification.json"),
+                    "--comparison",
+                    str(FIXTURES / "vmos-backend-fail" / "comparison.json"),
+                    "--out",
+                    str(report_md),
+                ],
+                text=True,
+                capture_output=True,
+            )
+            self.assertEqual(result.returncode, 0, result.stderr)
+            text = report_md.read_text(encoding="utf-8")
+            self.assertIn("# Android Attestation Report", text)
+            self.assertIn("backendStrict", text)
+            self.assertIn("Key possession and backend trust are separate claims.", text)
+            self.assertNotIn("snapchat", text.lower())
+
     def test_tool_map_uses_final_generic_tool_names(self):
         text = (SKILL / "references" / "tool-map.md").read_text(encoding="utf-8").lower()
         self.assertIn("android-env-capture.py", text)
@@ -202,6 +338,9 @@ class AndroidDeviceAttestationLabTests(unittest.TestCase):
         self.assertIn("compare-attestation-runs.py", text)
         self.assertIn("parse-android-key-attestation.py", text)
         self.assertIn("verify-attestation-report.py", text)
+        self.assertIn("attestation-backend-lab.py", text)
+        self.assertIn("attestation-root-diff.py", text)
+        self.assertIn("attestation-report.py", text)
         self.assertNotIn("likee_device_preflight.py", text)
         self.assertNotIn("android_env_probe.py", text)
         self.assertNotIn("../", text)

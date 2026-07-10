@@ -27,6 +27,8 @@ cases/<case-id>/
       flow-result.json
       attestation-summary.json
       attestation-comparison.json
+  reports/
+    attestation-report.md
 ```
 
 Minimum metadata:
