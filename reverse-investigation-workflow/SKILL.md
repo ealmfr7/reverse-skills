@@ -12,7 +12,7 @@ Use this skill to impose a repeatable case structure before or during reverse en
 Create a case:
 
 ```bash
-python3 reverse-investigation-workflow/scripts/init-case.py 2026-07-10-target-feature \
+reverse-skill reverse-investigation-workflow init-case 2026-07-10-target-feature \
   --root . \
   --target target-name \
   --platform android \
@@ -24,7 +24,7 @@ python3 reverse-investigation-workflow/scripts/init-case.py 2026-07-10-target-fe
 Add artifacts instead of dropping files directly into random folders:
 
 ```bash
-python3 reverse-investigation-workflow/scripts/add-artifact.py \
+reverse-skill reverse-investigation-workflow add-artifact \
   cases/2026-07-10-target-feature ./hook.js \
   --kind frida-script \
   --phase dynamic \
@@ -34,7 +34,7 @@ python3 reverse-investigation-workflow/scripts/add-artifact.py \
 Create a numbered run folder for each meaningful experiment:
 
 ```bash
-python3 reverse-investigation-workflow/scripts/new-run.py \
+reverse-skill reverse-investigation-workflow new-run \
   cases/2026-07-10-target-feature dynamic-login-hook \
   --phase dynamic \
   --command "frida -U -f com.example.app -l artifacts/frida/hook.js"
@@ -43,14 +43,14 @@ python3 reverse-investigation-workflow/scripts/new-run.py \
 Create standard Android attestation run folders:
 
 ```bash
-python3 reverse-investigation-workflow/scripts/init-attestation-runs.py \
+reverse-skill reverse-investigation-workflow init-attestation-runs \
   cases/2026-07-10-target-feature
 ```
 
 Build an evidence index before summarizing:
 
 ```bash
-python3 reverse-investigation-workflow/scripts/index-artifacts.py \
+reverse-skill reverse-investigation-workflow index-artifacts \
   cases/2026-07-10-target-feature \
   --json-out cases/2026-07-10-target-feature/reports/evidence-index.json
 ```

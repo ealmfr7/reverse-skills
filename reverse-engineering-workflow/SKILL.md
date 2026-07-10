@@ -12,7 +12,7 @@ Use this as the top-level router before selecting specialized skills. It should 
 Run the deterministic router when the goal or artifacts are available:
 
 ```bash
-python3 reverse-engineering-workflow/scripts/route-reversing-task.py \
+reverse-skill reverse-engineering-workflow route-reversing-task \
   "analyze APK, hook Frida login, inspect UDP media traffic, write findings" \
   --artifact app.apk \
   --artifact capture.pcap

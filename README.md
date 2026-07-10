@@ -27,6 +27,29 @@ private keys, cookies, session tokens, personal data, or customer data.
 | `reverse-engineering-workflow` | Parent router for Android, web/API, UDP/protocol, native, docs, evidence, and probe tooling workflows. |
 | `android-reversing-workflow` | Routes Android reversing goals to the right local skills and runbooks. |
 
+## Stable CLI
+
+Use `reverse-skill` to run bundled skill tools without long plugin cache paths:
+
+```bash
+reverse-skill list
+reverse-skill list android-device-attestation-lab
+reverse-skill path android-device-attestation-lab verify-attestation-report
+reverse-skill android-device-attestation-lab verify-attestation-report report.json --root-diff root-diff.json
+```
+
+Install or refresh the CLI symlink:
+
+```bash
+bash scripts/install-reverse-skill.sh
+```
+
+Rebuild and reinstall the local plugin bundle:
+
+```bash
+bash scripts/build-local-plugin.sh
+```
+
 ### Investigation Operations
 
 | Skill | Purpose |
@@ -97,9 +120,7 @@ python3 -m unittest discover -s tests -v
 Validate skill metadata:
 
 ```bash
-for d in */SKILL.md; do
-  python3 /home/ubuntu/.codex/skills/.system/skill-creator/scripts/quick_validate.py "$(dirname "$d")"
-done
+reverse-skill list
 ```
 
 Third-party skill sources are tracked in `THIRD_PARTY_SKILLS.md`.

@@ -20,7 +20,7 @@ and Mach-O. For Java/Kotlin APK logic, prefer JADX first.
 Run dependency triage:
 
 ```bash
-bash scripts/check-ghidra-deps.sh
+  reverse-skill rev-ghidra check-ghidra-deps
 ```
 
 Read `references/workflow.md` for commands and script patterns.

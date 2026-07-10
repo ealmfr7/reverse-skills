@@ -19,7 +19,7 @@ run layouts, and decision rules.
 Check that a device/app is ready for a dynamic run:
 
 ```bash
-python3 android-device-attestation-lab/scripts/android-target-preflight.py \
+reverse-skill android-device-attestation-lab android-target-preflight \
   --package com.example.app \
   --fail-if-not-ready
 ```
@@ -27,7 +27,7 @@ python3 android-device-attestation-lab/scripts/android-target-preflight.py \
 Capture target-neutral Android environment signals:
 
 ```bash
-python3 android-device-attestation-lab/scripts/android-env-capture.py \
+reverse-skill android-device-attestation-lab android-env-capture \
   --package com.example.app \
   --raw-out cases/<case-id>/runs/0001-physical-attestation-baseline/raw \
   --json-out cases/<case-id>/runs/0001-physical-attestation-baseline/android-env.json
@@ -36,7 +36,7 @@ python3 android-device-attestation-lab/scripts/android-env-capture.py \
 Summarize a run folder with attestation artifacts:
 
 ```bash
-python3 android-device-attestation-lab/scripts/attestation-artifact-summary.py \
+reverse-skill android-device-attestation-lab attestation-artifact-summary \
   cases/<case-id>/runs/0001-device-attestation \
   --json-out cases/<case-id>/runs/0001-device-attestation/attestation-summary.json
 ```
@@ -44,7 +44,7 @@ python3 android-device-attestation-lab/scripts/attestation-artifact-summary.py \
 Compare two attestation runs:
 
 ```bash
-python3 android-device-attestation-lab/scripts/compare-attestation-runs.py \
+reverse-skill android-device-attestation-lab compare-attestation-runs \
   cases/<case-id>/runs/0001-physical-attestation-baseline \
   cases/<case-id>/runs/0002-comparison-attestation \
   --left-label physical \
@@ -55,11 +55,11 @@ python3 android-device-attestation-lab/scripts/compare-attestation-runs.py \
 Parse and verify an offline attestation report:
 
 ```bash
-python3 android-device-attestation-lab/scripts/parse-android-key-attestation.py \
+reverse-skill android-device-attestation-lab parse-android-key-attestation \
   cases/<case-id>/runs/0001-physical-attestation-baseline/env-probe.json \
   --json-out cases/<case-id>/runs/0001-physical-attestation-baseline/parsed-attestation.json
 
-python3 android-device-attestation-lab/scripts/verify-attestation-report.py \
+reverse-skill android-device-attestation-lab verify-attestation-report \
   cases/<case-id>/runs/0001-physical-attestation-baseline/env-probe.json \
   --root-diff cases/<case-id>/runs/0001-physical-attestation-baseline/root-diff.json \
   --expected-attestation-security-level TrustedEnvironment \
@@ -71,7 +71,7 @@ python3 android-device-attestation-lab/scripts/verify-attestation-report.py \
 Model backend registration/signature trust locally:
 
 ```bash
-python3 android-device-attestation-lab/scripts/attestation-backend-lab.py issue-nonce \
+reverse-skill android-device-attestation-lab attestation-backend-lab issue-nonce \
   --state cases/<case-id>/backend-state.json \
   --device-id physical-1
 ```
@@ -79,7 +79,7 @@ python3 android-device-attestation-lab/scripts/attestation-backend-lab.py issue-
 Render a Markdown report:
 
 ```bash
-python3 android-device-attestation-lab/scripts/attestation-report.py \
+reverse-skill android-device-attestation-lab attestation-report \
   --summary cases/<case-id>/runs/0002-comparison-attestation/attestation-summary.json \
   --verification cases/<case-id>/runs/0002-comparison-attestation/verification.json \
   --comparison cases/<case-id>/runs/0002-comparison-attestation/attestation-comparison.json \
@@ -89,7 +89,7 @@ python3 android-device-attestation-lab/scripts/attestation-report.py \
 Search local dumps/images for root-source evidence:
 
 ```bash
-python3 android-device-attestation-lab/scripts/attestation-root-source-probe.py \
+reverse-skill android-device-attestation-lab attestation-root-source-probe \
   --root-diff cases/<case-id>/runs/0002-comparison-attestation/root-diff.json \
   --local-scan-dir cases/<case-id>/artifacts/device-image \
   --json-out cases/<case-id>/runs/0002-comparison-attestation/root-source.json
