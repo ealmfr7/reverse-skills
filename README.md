@@ -2,6 +2,22 @@
 
 This repository collects reverse engineering skills for Codex-style agents.
 
+## Repository Use Policy
+
+Use these skills only for work that is in scope for the case: owned systems,
+contracted testing, lab devices, CTFs, defensive research, incident response, or
+other explicitly authorized analysis.
+
+Do not use this repository to steal credentials or tokens, abuse third-party
+services, bypass payment or account restrictions, evade rate limits, deploy or
+improve malware, exfiltrate private data, or replay traffic against systems
+outside scope.
+
+Treat artifacts as evidence. Preserve original inputs, keep generated outputs
+separate, cite stable artifact paths for findings, and redact secrets before
+committing or sharing logs, HAR/PCAP files, screenshots, device identifiers,
+private keys, cookies, session tokens, personal data, or customer data.
+
 ## Skill Index
 
 ### Master Router

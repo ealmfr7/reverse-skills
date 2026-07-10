@@ -1,6 +1,6 @@
 ---
 name: android-objection
-description: Use Objection for authorized Android runtime exploration powered by Frida. Use when Codex needs interactive mobile app exploration, quick Frida-backed Android checks, package storage inspection, activity/service exploration, heap/class inspection, method watching, SSL pinning assessment in labs, or deciding when Objection is faster than writing custom Frida scripts.
+description: Use Objection for Android runtime exploration powered by Frida. Use when Codex needs interactive mobile app exploration, quick Frida-backed Android checks, package storage inspection, activity/service exploration, heap/class inspection, method watching, SSL pinning assessment in labs, or deciding when Objection is faster than writing custom Frida scripts.
 ---
 
 # Android Objection

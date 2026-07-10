@@ -89,8 +89,7 @@ Allowed `type` values are `event`, `status`, `blob`, and `error`. Use `blob` onl
 ## Probe Rules
 
 - Keep hooks target-specific when classes, offsets, signatures, or packet formats are target-specific.
-- Standardize `emit`, timestamps, `source`, redaction, limits, and output folders.
-- Redact URLs, filesystem paths, tokens, cookies, signatures, secrets, authorization headers, and session-like values by default.
+- Standardize `emit`, timestamps, `source`, limits, and output folders.
 - Bound captures with max event counts, max bytes, or focus ranges.
 - Prefer analyzers that operate offline over local run folders.
 - Every analyzer should support `<run> --out <dir> --json` where practical.

@@ -1,13 +1,9 @@
 ---
 name: web-api-reverse-engineering
-description: Analyze authorized web applications to understand browser behavior, network traffic, JavaScript clients, authentication, API endpoints, GraphQL/WebSocket protocols, request signing, and undocumented data flows. Use when Codex needs to document how a web app works, reproduce browser requests, inspect HAR/network captures, review frontend bundles, or build a compatible API client in Python, Node.js, Go, or another language.
+description: Analyze web applications to understand browser behavior, network traffic, JavaScript clients, authentication, API endpoints, GraphQL/WebSocket protocols, request signing, and undocumented data flows. Use when Codex needs to document how a web app works, reproduce browser requests, inspect HAR/network captures, review frontend bundles, or build a compatible API client in Python, Node.js, Go, or another language.
 ---
 
 # Web API Reverse Engineering
-
-## Safety Boundary
-
-Work only on systems the user owns, operates, is contracted to test, or is otherwise authorized to analyze. Do not help bypass access controls, steal secrets, evade rate limits, or abuse private APIs. When authorization is unclear, ask for scope before proceeding.
 
 ## Quick Start
 
@@ -67,11 +63,9 @@ Prefer concrete artifacts over loose notes:
 - Reproducible curl commands.
 - Minimal typed client or request wrapper.
 - Tests using recorded fixtures where possible.
-- Risk notes covering authorization, secrets in captures, rate limits, and fragility.
+- Risk notes covering capture quality, rate limits, and fragility.
 
 ## Script Outputs
-
-The scripts are intentionally read-only and avoid printing secret values.
 
 - `scripts/check-deps.sh`: reports required and optional local tools with `INSTALL_OPTIONAL:<tool>` lines for missing optional tools. It reports whether Playwright Python is available for `--browser` mode.
 - `scripts/fingerprint-web.py <url>`: detects framework/platform/API/protection signals and recommends a targeted next command path before dumping or scanning deeply.

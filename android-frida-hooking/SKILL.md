@@ -1,19 +1,16 @@
 ---
 name: android-frida-hooking
-description: Create, adapt, and troubleshoot Frida scripts for authorized Android dynamic analysis. Use when Codex needs to hook Android APKs at runtime, inspect Java/Kotlin methods, handle overloads, constructors, ClassLoaders, OkHttp/WebView/network behavior, crypto/storage APIs, native .so exports, JNI, RegisterNatives, dlopen timing, or Frida spawn/attach setup on rooted devices and emulators.
+description: Create, adapt, and troubleshoot Frida scripts for Android dynamic analysis. Use when Codex needs to hook Android APKs at runtime, inspect Java/Kotlin methods, handle overloads, constructors, ClassLoaders, OkHttp/WebView/network behavior, crypto/storage APIs, native .so exports, JNI, RegisterNatives, dlopen timing, or Frida spawn/attach setup on rooted devices and emulators.
 ---
 
 # Android Frida Hooking
 
-Use this skill to guide authorized Android runtime instrumentation with Frida.
-Work only on apps the user owns, operates, is contracted to test, or is using in
-a lab/CTF. Do not help abuse third-party apps, steal secrets, evade account
-controls, or bypass payment/access restrictions.
+Use this skill to guide Android runtime instrumentation with Frida.
 
 ## Quick Workflow
 
-1. Confirm scope: app package, device/emulator, authorization, Android version,
-   ABI, and target behavior.
+1. Confirm target context: app package, device/emulator, Android version, ABI,
+   and target behavior.
 2. If setup is unknown, run:
    ```bash
    bash scripts/check-frida-android.sh

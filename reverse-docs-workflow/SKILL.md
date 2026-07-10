@@ -78,7 +78,6 @@ Keep ad hoc notes out of `reports/` until reviewed. Use `findings/` for claims p
 - Prefer stable IDs over phase names alone: `F-0001`, `D-0001`, `R-0001`.
 - Never delete stale findings by default. Mark them `superseded` and point to the replacement.
 - A finding should cite evidence paths from a case, artifact index, run folder, log, PCAP, HAR, screenshot, or code reference.
-- Keep secrets out of docs. Refer to redacted artifact paths, not raw credentials or tokens.
 
 ## Reference Routing
 

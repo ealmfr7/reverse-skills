@@ -1,13 +1,9 @@
 ---
 name: android-apk-patching
-description: Patch, rebuild, align, sign, install, and verify authorized Android APKs. Use when Codex needs apktool, smali/baksmali, AndroidManifest or resource edits, debug flag changes in lab builds, network security config edits for owned apps, zipalign, apksigner, adb install, or troubleshooting APK rebuild/signature/install failures.
+description: Patch, rebuild, align, sign, install, and verify Android APKs. Use when Codex needs apktool, smali/baksmali, AndroidManifest or resource edits, debug flag changes in lab builds, network security config edits, zipalign, apksigner, adb install, or troubleshooting APK rebuild/signature/install failures.
 ---
 
 # Android APK Patching
-
-Patch only apps the user owns, operates, is contracted to test, or has explicit
-lab/CTF permission to modify. Do not help repackage third-party apps for abuse,
-impersonation, malware, credential theft, or unauthorized access.
 
 ## Workflow
 
@@ -23,7 +19,7 @@ impersonation, malware, credential theft, or unauthorized access.
    ```
 4. Patch the smallest surface: manifest/resource XML first, smali only when
    required and understood.
-   For lab CA/proxy testing in an owned app:
+   For CA/proxy testing:
    ```bash
    python3 scripts/add-network-security-config.py work/app --trust-user-certs
    ```

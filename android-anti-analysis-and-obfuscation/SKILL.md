@@ -1,6 +1,6 @@
 ---
 name: android-anti-analysis-and-obfuscation
-description: Triage and document Android APK anti-analysis, anti-debug, anti-Frida, root/emulator detection, certificate pinning, Play Integrity/SafetyNet/key attestation, packed DEX/loaders, string encryption, Java/Kotlin obfuscation, native integrity checks, and tamper protections. Use when Codex needs to analyze why an APK behaves differently on VMOS/emulators/rooted devices, detect Snapchat-like attestation or integrity failures, classify protections from JADX/apktool/Ghidra/logcat/Frida evidence, plan authorized experiments, or produce an evidence-backed anti-analysis report.
+description: Triage and document Android APK anti-analysis, anti-debug, anti-Frida, root/emulator detection, certificate pinning, Play Integrity/SafetyNet/key attestation, packed DEX/loaders, string encryption, Java/Kotlin obfuscation, native integrity checks, and tamper protections. Use when Codex needs to analyze why an APK behaves differently on VMOS/emulators/rooted devices, detect Snapchat-like attestation or integrity failures, classify protections from JADX/apktool/Ghidra/logcat/Frida evidence, plan comparison experiments, or produce an evidence-backed anti-analysis report.
 ---
 
 # Android Anti-Analysis and Obfuscation
@@ -51,7 +51,6 @@ For a full case, combine:
 
 ## Rules
 
-- Work only on authorized apps, lab devices, CTFs, owned systems, or defensive analysis.
 - Prefer classification and evidence before attempting modifications.
 - Compare environments instead of assuming one failure cause.
 - Mark every conclusion as observed, inferred, or unverified.

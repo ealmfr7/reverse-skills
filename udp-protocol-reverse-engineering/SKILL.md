@@ -1,19 +1,17 @@
 ---
 name: udp-protocol-reverse-engineering
-description: Analyze authorized UDP protocols from PCAPs, Android apps, native binaries, Frida hooks, and lab replays. Use when Codex needs UDP packet capture, tshark/Wireshark filters, UDP flow extraction, payload clustering, binary protocol inference, sendto/recvfrom or DatagramSocket hooks, QUIC/DTLS/custom UDP triage, replay safety, Scapy/socket replay, or correlation between UDP payloads and app code.
+description: Analyze UDP protocols from PCAPs, Android apps, native binaries, Frida hooks, and lab replays. Use when Codex needs UDP packet capture, tshark/Wireshark filters, UDP flow extraction, payload clustering, binary protocol inference, sendto/recvfrom or DatagramSocket hooks, QUIC/DTLS/custom UDP triage, replay behavior, Scapy/socket replay, or correlation between UDP payloads and app code.
 ---
 
 # UDP Protocol Reverse Engineering
 
-Use this skill for authorized UDP protocol analysis in owned apps, labs, CTFs,
-internal systems, and defensive research. Do not help attack third-party
-services, bypass access controls, amplify traffic, scan the internet, or replay
-packets against systems outside scope.
+Use this skill for UDP protocol analysis from captures, app code, and controlled
+replay experiments.
 
 ## Workflow
 
-1. Confirm scope: target app/system, capture source, IPs/ports, account/test
-   environment, and whether replay is allowed.
+1. Confirm target context: target app/system, capture source, IPs/ports,
+   account/test environment, and replay plan.
 2. Capture or receive a PCAP:
    ```bash
    bash scripts/capture-udp-tcpdump.sh any udp-capture.pcapng "udp"
@@ -35,7 +33,7 @@ packets against systems outside scope.
    ```
 6. If payloads are custom binary, inspect lengths, magic bytes, counters,
    timestamps, endianness, compression, encryption, and checksums before replay.
-7. Replay only against an authorized lab endpoint:
+7. Replay against the selected test endpoint:
    ```bash
    python3 scripts/replay-udp.py 127.0.0.1 9000 --hex 01020304
    ```
@@ -47,7 +45,7 @@ packets against systems outside scope.
 - Binary payload patterns: `references/binary-protocol-patterns.md`
 - Frida socket hooks: `references/frida-udp-hooks.md`
 - QUIC/DTLS/custom encrypted UDP: `references/quic-dtls-notes.md`
-- Replay boundaries: `references/replay-safety.md`
+- Replay process: `references/replay-safety.md`
 
 ## Script Outputs
 
@@ -62,7 +60,7 @@ packets against systems outside scope.
   protocol hierarchy stats.
 - `make-frida-udp-hooks.py`: generates native `sendto`/`recvfrom` and Java
   `DatagramSocket` hooks.
-- `replay-udp.py`: sends one payload to an authorized lab endpoint.
+- `replay-udp.py`: sends one payload to a selected endpoint.
 
 ## Source Anchors
 

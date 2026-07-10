@@ -1,13 +1,12 @@
 ---
 name: android-reversing-workflow
-description: Master runbook for routing authorized Android reversing tasks to the right local skills. Use when Codex needs to choose between APK decompilation, packed DEX dumping, Frida hooking, traffic capture, APK patching, cross-platform triage, malware triage, native .so analysis, IDA/Ghidra, symbol/struct recovery, Unicorn emulation, or web/API reverse engineering.
+description: Master runbook for routing Android reversing tasks to the right local skills. Use when Codex needs to choose between APK decompilation, packed DEX dumping, Frida hooking, traffic capture, APK patching, cross-platform triage, malware triage, native .so analysis, IDA/Ghidra, symbol/struct recovery, Unicorn emulation, or web/API reverse engineering.
 ---
 
 # Android Reversing Workflow
 
 Use this as the parent skill when the user has an Android APK/reversing goal but
-the right technique is not obvious. Work only on authorized apps, labs, CTFs,
-owned systems, or defensive samples.
+the right technique is not obvious.
 
 ## Router
 

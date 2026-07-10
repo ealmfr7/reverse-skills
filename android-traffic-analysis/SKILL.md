@@ -1,12 +1,9 @@
 ---
 name: android-traffic-analysis
-description: Capture, inspect, and document authorized Android app network traffic. Use when Codex needs mitmproxy, Burp, HTTP Toolkit, adb proxy configuration, emulator proxy setup, user/system CA trust, Android Network Security Config, HAR/flow review, OkHttp correlation, TLS troubleshooting, or traffic-to-client reproduction for owned apps and approved tests.
+description: Capture, inspect, and document Android app network traffic. Use when Codex needs mitmproxy, Burp, HTTP Toolkit, adb proxy configuration, emulator proxy setup, user/system CA trust, Android Network Security Config, HAR/flow review, OkHttp correlation, TLS troubleshooting, or traffic-to-client reproduction.
 ---
 
 # Android Traffic Analysis
-
-Analyze only traffic for apps and accounts in scope. Redact tokens, cookies, PII,
-and secrets before sharing logs.
 
 ## Workflow
 
@@ -20,8 +17,7 @@ and secrets before sharing logs.
    - Browser/WebView or normal HTTP: proxy with mitmproxy/Burp/HTTP Toolkit.
    - App rejects proxy cert: inspect Network Security Config and TLS behavior.
    - Data encrypted before HTTP: use `android-frida-hooking` or app-layer hooks.
-4. Configure emulator/device proxy and install the test CA only in authorized lab
-   devices.
+4. Configure emulator/device proxy and install the test CA for the test device.
    ```bash
    bash scripts/set-android-proxy.sh 10.0.2.2 8080
    ```

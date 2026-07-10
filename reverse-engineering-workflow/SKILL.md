@@ -1,6 +1,6 @@
 ---
 name: reverse-engineering-workflow
-description: Parent router for authorized reverse engineering work across Android APKs, web/API targets, UDP/protocol captures, native binaries, Frida probes, documentation, evidence, and reporting. Use when Codex needs to choose which reverse engineering skills to apply, plan an end-to-end workflow, decide whether work belongs in Android, web, protocol, investigation, docs, or probe tooling skills, or coordinate multiple skills for apps such as Likee, Bigo, web clients, PCAP/HAR captures, scripts, findings, and reports.
+description: Parent router for reverse engineering work across Android APKs, web/API targets, UDP/protocol captures, native binaries, Frida probes, documentation, evidence, and reporting. Use when Codex needs to choose which reverse engineering skills to apply, plan an end-to-end workflow, decide whether work belongs in Android, web, protocol, investigation, docs, or probe tooling skills, or coordinate multiple skills for apps, web clients, PCAP/HAR captures, scripts, findings, and reports.
 ---
 
 # Reverse Engineering Workflow
@@ -37,13 +37,12 @@ Use `--json` when another script or report needs structured output.
 
 ## Default Workflow
 
-1. Confirm authorization and scope.
-2. Create or select a case with `reverse-investigation-workflow`.
-3. Route the technical domain: Android, web/API, UDP/protocol, native, or mixed.
-4. Standardize scripts/probes with `reverse-probe-tooling-workflow` when dynamic tooling is created.
-5. Store outputs as run artifacts and generate evidence indexes.
-6. Promote durable claims into `reverse-docs-workflow`.
-7. Produce a report that cites evidence paths, run indexes, and findings.
+1. Create or select a case with `reverse-investigation-workflow`.
+2. Route the technical domain: Android, web/API, UDP/protocol, native, or mixed.
+3. Standardize scripts/probes with `reverse-probe-tooling-workflow` when dynamic tooling is created.
+4. Store outputs as run artifacts and generate evidence indexes.
+5. Promote durable claims into `reverse-docs-workflow`.
+6. Produce a report that cites evidence paths, run indexes, and findings.
 
 ## Routing Rules
 

@@ -86,5 +86,5 @@ Read `references/folder-layout.md` when deciding where a new file belongs.
 
 - Read `references/case-schema.md` when creating or editing `case.yaml`.
 - Read `references/folder-layout.md` when reorganizing a workspace or deciding file placement.
-- Read `references/artifact-policy.md` before handling tokens, accounts, captures, customer data, malware, or third-party app data.
+- Read `references/artifact-policy.md` when deciding where evidence belongs.
 - Read `references/migration-guide.md` when converting an existing messy workspace into `cases/`.
