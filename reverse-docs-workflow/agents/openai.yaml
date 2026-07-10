@@ -1,0 +1,4 @@
+interface:
+  display_name: "Reverse Docs Workflow"
+  short_description: "Organize reversing docs, findings, decisions, and reports."
+  default_prompt: "Use $reverse-docs-workflow to organize reverse engineering documentation."
