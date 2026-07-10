@@ -2,24 +2,77 @@
 
 This repository collects reverse engineering skills for Codex-style agents.
 
-## Included skills
+## Skill Index
 
-- `android-reversing-workflow`: master runbook that routes Android reversing tasks to the right skills.
-- `web-api-reverse-engineering`: local skill for web API reverse engineering workflows.
-- `rev-frida`: imported Frida instrumentation skill for runtime hooking and dynamic analysis.
-- `rev-dex-dumper`: imported Android DEX memory dumping skill for packed or dynamically loaded apps.
-- `rev-idapython`: imported IDAPython and IDALib reference skill for IDA automation.
-- `rev-symbol`: imported symbol recovery skill for reverse engineering workflows.
-- `rev-struct`: imported structure recovery skill for native reverse engineering.
-- `rev-unicorn-debug`: imported Unicorn emulation skill for targeted binary debugging.
-- `android-frida-hooking`: local skill for authorized Android Frida setup, Java/Kotlin hooks, native/JNI hooks, network hooks, crypto/storage hooks, and troubleshooting.
-- `android-apk-patching`: local skill for authorized APK patch, rebuild, align, sign, install, and verification workflows.
-- `android-traffic-analysis`: local skill for authorized Android proxy capture, TLS troubleshooting, and traffic documentation.
-- `rev-ghidra`: local skill for Ghidra native binary analysis and headless automation.
-- `android-objection`: local skill for Objection-based Android runtime exploration.
-- `android-cross-platform-reversing`: local skill for Flutter, React Native, Cordova, Xamarin, and Unity APK triage.
-- `android-malware-triage`: local defensive skill for suspicious APK triage and IOC extraction.
-- `android-arm64-native-basics`: local skill for ARM64, JNI, offsets, pointers, and native hook interpretation.
-- `udp-protocol-reverse-engineering`: local skill for authorized UDP PCAP analysis, payload clustering, Frida socket hooks, binary protocol inference, and lab replay.
+### Master Router
+
+| Skill | Purpose |
+|---|---|
+| `android-reversing-workflow` | Routes Android reversing goals to the right local skills and runbooks. |
+
+### Android Static and Dynamic Analysis
+
+| Skill | Purpose |
+|---|---|
+| `android-frida-hooking` | Frida setup, Java/Kotlin hooks, native hooks, ClassLoaders, OkHttp/WebView, crypto/storage templates. |
+| `rev-frida` | Third-party Frida reference for Java, ObjC, native hooks, memory, and module load timing. |
+| `rev-dex-dumper` | DEX memory dumping for packed or dynamically loaded Android apps. |
+| `android-apk-patching` | APK decode, patch, rebuild, zipalign, sign, install, and logcat workflows. |
+| `android-traffic-analysis` | Authorized Android HTTP/TLS proxy capture and traffic summaries. |
+| `android-objection` | Objection-based interactive runtime exploration. |
+
+### Cross-Platform APKs
+
+| Skill | Purpose |
+|---|---|
+| `android-cross-platform-reversing` | Flutter, React Native/Hermes, Cordova/Capacitor, Xamarin, and Unity APK triage. |
+
+### Native Reversing
+
+| Skill | Purpose |
+|---|---|
+| `android-arm64-native-basics` | ARM64 registers, JNI mapping, offset math, and Frida native argument decoding. |
+| `rev-ghidra` | Ghidra native analysis, headless scripts, function/string/import export, Frida offset hooks. |
+| `rev-idapython` | Third-party IDAPython/IDALib reference for IDA automation. |
+| `rev-symbol` | Function symbol/name recovery from patterns, strings, constants, and xrefs. |
+| `rev-struct` | Native structure reconstruction from memory access patterns. |
+| `rev-unicorn-debug` | Unicorn-based function emulation and native algorithm debugging. |
+
+### Protocols and APIs
+
+| Skill | Purpose |
+|---|---|
+| `web-api-reverse-engineering` | Browser/API reverse engineering: HAR, JS bundles, GraphQL, WebSocket, source maps, clients. |
+| `udp-protocol-reverse-engineering` | UDP PCAP analysis, payload clustering, field inference, Frida socket hooks, QUIC/DTLS notes, lab replay. |
+
+### Defensive Triage
+
+| Skill | Purpose |
+|---|---|
+| `android-malware-triage` | Defensive suspicious APK triage and IOC extraction. |
+
+## Examples
+
+End-to-end lab workflows are documented in `docs/examples/`:
+
+- `docs/examples/android-api-lab.md`
+- `docs/examples/android-native-signing-lab.md`
+- `docs/examples/udp-protocol-lab.md`
+
+## Validation
+
+Run the local test suite:
+
+```bash
+python3 -m unittest discover -s tests -v
+```
+
+Validate skill metadata:
+
+```bash
+for d in */SKILL.md; do
+  python3 /home/ubuntu/.codex/skills/.system/skill-creator/scripts/quick_validate.py "$(dirname "$d")"
+done
+```
 
 Third-party skill sources are tracked in `THIRD_PARTY_SKILLS.md`.

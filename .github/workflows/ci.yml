@@ -1,0 +1,47 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Run unit tests
+        run: python3 -m unittest discover -s tests -v
+
+      - name: Validate skill metadata
+        run: |
+          python3 - <<'PY'
+          import pathlib
+          import sys
+
+          failed = False
+          for skill in sorted(pathlib.Path(".").glob("*/SKILL.md")):
+              text = skill.read_text(encoding="utf-8")
+              if not text.startswith("---\n"):
+                  print(f"missing frontmatter: {skill}")
+                  failed = True
+                  continue
+              _, frontmatter, _ = text.split("---", 2)
+              fields = {}
+              for line in frontmatter.splitlines():
+                  if ":" in line and not line.startswith(" "):
+                      key, value = line.split(":", 1)
+                      fields[key.strip()] = value.strip()
+              if not fields.get("name") or not fields.get("description"):
+                  print(f"missing name/description: {skill}")
+                  failed = True
+          if failed:
+              sys.exit(1)
+          PY
