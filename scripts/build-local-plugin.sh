@@ -26,6 +26,7 @@ done < <(cd "$ROOT_DIR" && find . -maxdepth 2 -name SKILL.md -printf '%h\n' | so
 python3 "$PLUGIN_CREATOR/validate_plugin.py" "$PLUGIN_DIR"
 python3 "$PLUGIN_CREATOR/update_plugin_cachebuster.py" "$PLUGIN_DIR"
 codex plugin add "$PLUGIN_NAME@personal" >/dev/null
+bash "$ROOT_DIR/scripts/install-reverse-skill.sh" >/dev/null
 
 echo "PLUGIN_SYNCED:$PLUGIN_DIR"
 echo "MARKETPLACE:$MARKETPLACE_PATH"

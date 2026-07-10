@@ -2,6 +2,8 @@
 from __future__ import annotations
 
 import os
+import json
+import shutil
 import subprocess
 import sys
 from pathlib import Path
@@ -25,6 +27,23 @@ def candidate_roots() -> list[Path]:
     if account_cache.exists():
         roots.extend(account_cache.glob(f"*/plugins/cache/personal/{PLUGIN_NAME}/*/skills"))
     return roots
+
+
+def candidate_root_records() -> list[dict[str, object]]:
+    home = Path.home()
+    records: list[dict[str, object]] = [
+        {"kind": "repo", "path": repo_root()},
+        {"kind": "local-plugin", "path": home / "plugins" / PLUGIN_NAME / "skills"},
+        {
+            "kind": "codex-cache",
+            "path": home / ".codex" / "plugins" / "cache" / "personal" / PLUGIN_NAME,
+        },
+    ]
+    account_cache = home / ".codex-account-cli" / "homes"
+    if account_cache.exists():
+        for path in sorted(account_cache.glob(f"*/plugins/cache/personal/{PLUGIN_NAME}/*/skills")):
+            records.append({"kind": "account-cache", "path": path})
+    return records
 
 
 def skills_root(root: Path) -> Path:
@@ -102,9 +121,137 @@ def command_for(path: Path, args: list[str]) -> list[str]:
     return [str(path), *args]
 
 
+def doctor_data() -> dict[str, object]:
+    skills = skill_dirs()
+    roots = []
+    for record in candidate_root_records():
+        path = Path(record["path"])
+        base = skills_root(path)
+        roots.append(
+            {
+                "kind": record["kind"],
+                "path": str(path),
+                "exists": path.exists(),
+                "skillsPath": str(base),
+                "skillsPathExists": base.exists(),
+                "skillCount": len(list(base.glob("*/SKILL.md"))) if base.exists() else 0,
+            }
+        )
+
+    tools = {}
+    for name in [
+        "python3",
+        "bash",
+        "git",
+        "codex",
+        "adb",
+        "frida",
+        "jadx",
+        "apktool",
+        "tshark",
+        "ghidra_analyzeHeadless",
+    ]:
+        tools[name] = shutil.which(name)
+
+    return {
+        "cli": {
+            "path": str(Path(__file__).resolve()),
+            "onPath": shutil.which("reverse-skill"),
+        },
+        "plugin": {
+            "name": PLUGIN_NAME,
+        },
+        "roots": roots,
+        "skills": {
+            "count": len(skills),
+            "names": list(skills),
+        },
+        "tools": tools,
+    }
+
+
+def doctor(json_output: bool = False) -> int:
+    data = doctor_data()
+    if json_output:
+        print(json.dumps(data, indent=2, sort_keys=True))
+        return 0
+
+    print("Reverse Skill Doctor")
+    print(f"cli: {data['cli']['path']}")
+    print(f"cli_on_path: {data['cli']['onPath'] or 'missing'}")
+    print(f"plugin: {data['plugin']['name']}")
+    print(f"skills: {data['skills']['count']}")
+    print("roots:")
+    for root in data["roots"]:
+        status = "ok" if root["skillsPathExists"] else "missing"
+        print(f"  - {root['kind']}: {root['path']} [{status}, skills={root['skillCount']}]")
+    print("tools:")
+    for name, path in data["tools"].items():
+        print(f"  - {name}: {path or 'missing'}")
+    return 0
+
+
+def bash_completion() -> str:
+    skills = " ".join(skill_dirs())
+    commands = "doctor list path completion"
+    return f"""# bash completion for reverse-skill
+_reverse_skill()
+{{
+  local cur cword
+  cur="${{COMP_WORDS[COMP_CWORD]}}"
+  cword="${{COMP_CWORD}}"
+
+  local commands="{commands}"
+  local skills="{skills}"
+
+  if [[ $cword -eq 1 ]]; then
+    COMPREPLY=( $(compgen -W "$commands $skills" -- "$cur") )
+    return
+  fi
+
+  case "${{COMP_WORDS[1]}}" in
+    completion)
+      COMPREPLY=( $(compgen -W "bash" -- "$cur") )
+      return
+      ;;
+    list)
+      COMPREPLY=( $(compgen -W "$skills" -- "$cur") )
+      return
+      ;;
+    path)
+      if [[ $cword -eq 2 ]]; then
+        COMPREPLY=( $(compgen -W "$skills" -- "$cur") )
+      elif [[ $cword -eq 3 ]]; then
+        COMPREPLY=( $(compgen -W "$(reverse-skill list "${{COMP_WORDS[2]}}" 2>/dev/null)" -- "$cur") )
+      fi
+      return
+      ;;
+    doctor)
+      COMPREPLY=( $(compgen -W "--json" -- "$cur") )
+      return
+      ;;
+  esac
+
+  if [[ $cword -eq 2 ]]; then
+    COMPREPLY=( $(compgen -W "$(reverse-skill list "${{COMP_WORDS[1]}}" 2>/dev/null)" -- "$cur") )
+  fi
+}}
+complete -F _reverse_skill reverse-skill
+"""
+
+
+def completion(shell: str) -> int:
+    if shell != "bash":
+        raise SystemExit(f"Unsupported completion shell: {shell}\nAvailable shells: bash")
+    print(bash_completion(), end="")
+    return 0
+
+
 def usage() -> int:
     print(
         "Usage:\n"
+        "  reverse-skill doctor [--json]\n"
+        "  reverse-skill completion bash\n"
         "  reverse-skill list [skill]\n"
         "  reverse-skill path <skill> <tool>\n"
         "  reverse-skill <skill> <tool> [args...]\n",
@@ -116,6 +263,16 @@ def usage() -> int:
 def main(argv: list[str] | None = None) -> int:
     argv = list(sys.argv[1:] if argv is None else argv)
     if not argv:
+        return usage()
+    if argv[0] == "doctor":
+        if len(argv) == 1:
+            return doctor()
+        if len(argv) == 2 and argv[1] == "--json":
+            return doctor(json_output=True)
+        return usage()
+    if argv[0] == "completion":
+        if len(argv) == 2:
+            return completion(argv[1])
         return usage()
     if argv[0] == "list":
         if len(argv) == 1:

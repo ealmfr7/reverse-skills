@@ -32,6 +32,8 @@ private keys, cookies, session tokens, personal data, or customer data.
 Use `reverse-skill` to run bundled skill tools without long plugin cache paths:
 
 ```bash
+reverse-skill doctor
+reverse-skill doctor --json
 reverse-skill list
 reverse-skill list android-device-attestation-lab
 reverse-skill path android-device-attestation-lab verify-attestation-report
@@ -48,6 +50,12 @@ Rebuild and reinstall the local plugin bundle:
 
 ```bash
 bash scripts/build-local-plugin.sh
+```
+
+Enable Bash completion for the current shell:
+
+```bash
+source <(reverse-skill completion bash)
 ```
 
 ### Investigation Operations
@@ -120,7 +128,7 @@ python3 -m unittest discover -s tests -v
 Validate skill metadata:
 
 ```bash
-reverse-skill list
+reverse-skill doctor
 ```
 
 Third-party skill sources are tracked in `THIRD_PARTY_SKILLS.md`.
