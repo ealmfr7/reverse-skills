@@ -17,6 +17,7 @@ RULES = [
     ("crypto/storage analysis", ["USES_CRYPTO=yes", "crypto", "cipher", "decrypt", "encrypt", "token", "sharedpreferences"], ["android-frida-hooking", "android-reverse-engineering"]),
     ("native/JNI analysis", ["HAS_NATIVE_LIBS=yes", "NATIVE_JNI_SIGNAL=yes", ".so", "jni", "native", "arm64"], ["android-arm64-native-basics", "rev-ghidra", "rev-idapython", "android-frida-hooking"]),
     ("malware triage", ["MALWARE_SIGNAL=yes", "malware", "ioc", "suspicious", "c2", "sms", "accessibility"], ["android-malware-triage"]),
+    ("device attestation lab", ["attestation", "keymaster", "keystore", "play integrity", "safetynet", "vmos", "root certificate", "google root", "spki", "backend trust", "nonce"], ["android-device-attestation-lab", "android-anti-analysis-and-obfuscation"]),
     ("APK patch/rebuild", ["patch", "rebuild", "apktool", "sign", "zipalign", "smali"], ["android-apk-patching"]),
     ("isolated native emulation", ["unicorn", "emulate", "emulation", "algorithm", "native signing"], ["rev-unicorn-debug", "android-arm64-native-basics"]),
     ("UDP/custom datagram analysis", ["udp", "datagram", "sendto", "recvfrom", "quic", "dtls", "pcap", "tshark"], ["udp-protocol-reverse-engineering", "android-frida-hooking", "rev-ghidra"]),

@@ -17,6 +17,7 @@ owned systems, or defensive samples.
 | Need full Android workflow decision tree | this skill + `references/runbook.md` |
 | APK is packed or JADX shows only stub/loader | `rev-dex-dumper` |
 | Root/emulator/Frida detection, pinning, attestation, obfuscation | `android-anti-analysis-and-obfuscation` |
+| Play Integrity/SafetyNet/KeyStore attestation, VMOS comparison, root certificate source, backend trust lab | `android-device-attestation-lab`, `android-anti-analysis-and-obfuscation` |
 | Runtime method/function observation | `android-frida-hooking`, `rev-frida` |
 | Quick interactive Frida exploration | `android-objection` |
 | Capture HTTP/TLS traffic | `android-traffic-analysis`, `web-api-reverse-engineering` |

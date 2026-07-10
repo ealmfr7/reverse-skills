@@ -1,0 +1,15 @@
+{
+  "checks": {
+    "attestationSecurityLevel": "Software",
+    "deviceLocked": false,
+    "keymasterSecurityLevel": "Software",
+    "verifiedBootState": "SelfSigned"
+  },
+  "device": {
+    "label": "comparison-device"
+  },
+  "key_attestation": {
+    "chain_present": true,
+    "chain_length": 3
+  }
+}

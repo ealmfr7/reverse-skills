@@ -45,6 +45,28 @@ RULES = [
         "Classify Android anti-analysis, attestation, pinning, packing, and obfuscation protections.",
     ),
     (
+        "android-device-attestation-lab",
+        {
+            "attestation",
+            "key attestation",
+            "keymaster",
+            "keystore",
+            "play integrity",
+            "safetynet",
+            "vmos",
+            "emulator",
+            "root certificate",
+            "google root",
+            "spki",
+            "backend trust",
+            "nonce",
+            "device trust",
+            "env probe",
+        },
+        set(),
+        "Collect and compare Android device environment, KeyStore attestation, root certificate, and backend trust evidence.",
+    ),
+    (
         "web-api-reverse-engineering",
         {"web", "url", "har", "javascript", "js", "bundle", "graphql", "websocket", "devtools", "curl", "api", "endpoint"},
         {".har", ".html", ".js", ".map"},
@@ -101,6 +123,7 @@ def route(goal: str, artifacts: list[str]) -> dict:
         "udp-protocol-reverse-engineering",
         "android-frida-hooking",
         "android-anti-analysis-and-obfuscation",
+        "android-device-attestation-lab",
         "rev-ghidra",
         "reverse-probe-tooling-workflow",
         "reverse-docs-workflow",
@@ -123,6 +146,8 @@ def first_steps(skills: list[str]) -> list[str]:
         steps.append("Fingerprint APK/app and choose static, dynamic, traffic, or native route.")
     if "android-anti-analysis-and-obfuscation" in skills:
         steps.append("Scan for root/emulator/Frida/pinning/attestation/packing signals and plan comparison runs.")
+    if "android-device-attestation-lab" in skills:
+        steps.append("Preflight target device/app, collect attestation artifacts, and compare against a physical-device baseline.")
     if "web-api-reverse-engineering" in skills:
         steps.append("Fingerprint URL/HAR/JS and build endpoint inventory.")
     if "udp-protocol-reverse-engineering" in skills:

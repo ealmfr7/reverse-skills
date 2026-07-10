@@ -1,0 +1,16 @@
+{
+  "checks": {
+    "attestationSecurityLevel": "Software",
+    "deviceLocked": false,
+    "keymasterSecurityLevel": "Software",
+    "verifiedBootState": "SelfSigned"
+  },
+  "policy": {
+    "backendStrict": {
+      "passed": false,
+      "reasons": [
+        "missing exact Google root certificate match"
+      ]
+    }
+  }
+}

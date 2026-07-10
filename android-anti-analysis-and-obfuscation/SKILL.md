@@ -23,8 +23,9 @@ For a full case, combine:
 1. `reverse-investigation-workflow`: create case and add APK, logs, screenshots, and runs.
 2. `android-reversing-workflow`: fingerprint APK/static/native surfaces.
 3. This skill: classify anti-analysis signals and plan controlled experiments.
-4. `reverse-probe-tooling-workflow`: standardize Frida/logcat/strace probes.
-5. `reverse-docs-workflow`: publish findings with evidence paths.
+4. `android-device-attestation-lab`: collect/compare device trust, KeyStore attestation, root certificate, and backend-trust artifacts when attestation is in scope.
+5. `reverse-probe-tooling-workflow`: standardize Frida/logcat/strace probes.
+6. `reverse-docs-workflow`: publish findings with evidence paths.
 
 ## Triage Order
 

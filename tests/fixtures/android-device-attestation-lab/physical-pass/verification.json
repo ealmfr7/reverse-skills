@@ -1,0 +1,14 @@
+{
+  "checks": {
+    "attestationSecurityLevel": "TrustedEnvironment",
+    "deviceLocked": true,
+    "keymasterSecurityLevel": "TrustedEnvironment",
+    "verifiedBootState": "Verified"
+  },
+  "policy": {
+    "backendStrict": {
+      "passed": true,
+      "reasons": []
+    }
+  }
+}

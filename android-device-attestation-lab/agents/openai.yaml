@@ -1,0 +1,4 @@
+interface:
+  display_name: "Android Device Attestation Lab"
+  short_description: "Run Android device trust and attestation labs."
+  default_prompt: "Use $android-device-attestation-lab to compare Android device environments and attestation evidence."

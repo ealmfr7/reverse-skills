@@ -1,0 +1,15 @@
+{
+  "checks": {
+    "attestationSecurityLevel": "TrustedEnvironment",
+    "deviceLocked": true,
+    "keymasterSecurityLevel": "TrustedEnvironment",
+    "verifiedBootState": "Verified"
+  },
+  "device": {
+    "label": "physical-baseline"
+  },
+  "key_attestation": {
+    "chain_present": true,
+    "chain_length": 4
+  }
+}
