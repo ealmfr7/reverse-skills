@@ -16,15 +16,16 @@ case scripts.
 | `attestation-backend-lab.py` | Models nonce, registration, challenge, synthetic signing, and signature verification against backend trust state. | Local synthetic state only. |
 | `attestation-root-diff.py` | Compares local root bytes and optional SPKI digests against trusted roots. | Keeps exact root and SPKI match separate. |
 | `attestation-report.py` | Renders Markdown from summary, verification, and comparison JSON artifacts. | Report generator only; no new claims. |
+| `attestation-root-source-probe.py` | Searches bounded local dumps/images for attestation root source markers. | Metadata-only output; does not copy matched file contents. |
+| `frida-keystore-trace.js` | Observational Java KeyStore availability/instance trace template. | Bounded JSON events; no method overwrites. |
+| `frida-keymaster-trace.js` | Observational native keymaster/keymint export trace template. | Bounded JSON events; attach-only native observation. |
 
 ## Candidate Tools To Add Later
 
 | Candidate | Role | Acceptance rule |
 |---|---|---|
-| `attestation-root-source-probe.py` | Search device/local images for root certificate material. | Must bound pulls/scans and default to metadata/hashes. |
 | `attestation-runtime-trace-summary.py` | Summarize strace/logcat/Frida runtime evidence. | Must consume offline input files and redact sensitive values. |
 | `attestation-native-static-probe.py` | Scan native files for keymaster/attestation strings and symbols. | Must be static-only and path-bounded. |
-| `frida-keystore-trace.js` / `frida-keymaster-trace.js` | Observational runtime probes for KeyStore/keymaster/X.509 flows. | Must emit bounded JSONL events and avoid policy modification. |
 
 ## Promotion Order
 
@@ -37,5 +38,5 @@ case scripts.
 7. `attestation-backend-lab.py`: backend nonce/register/signature lab model.
 8. `attestation-root-diff.py`: exact root and SPKI comparison.
 9. `attestation-report.py`: Markdown reporting.
-10. root source probes.
-11. KeyStore/keymaster Frida probes using the probe tooling event schema.
+10. `attestation-root-source-probe.py`: bounded root source scans.
+11. Frida KeyStore/keymaster traces using bounded JSON events.

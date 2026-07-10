@@ -1,4 +1,9 @@
 {
+  "localRoot": {
+    "path": "local-root.bin",
+    "sha256": "7cbe161b75d777e3176180a55cea4568176a1d20c9c502642cdab7f46e1092b2",
+    "spkiSha256": "spki-fixture-match"
+  },
   "rootComparison": {
     "exactGoogleRootMatch": false,
     "spkiGoogleRootMatch": true

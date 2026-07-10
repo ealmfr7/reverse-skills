@@ -19,6 +19,8 @@ artifacts/ghidra/         Ghidra exports, scripts, and project notes.
 artifacts/jadx/           JADX outputs and analysis notes.
 artifacts/web/            HAR files, JS bundles, API clients, replay notes.
 runs/                     Numbered experiments with commands and observations.
+                          Attestation cases may use physical-attestation-baseline,
+                          vmos-attestation-compare, and frida-attestation-observation.
 notes/hypotheses.md       Things believed but not proven.
 notes/findings.md         Proven facts with artifact references.
 notes/unknowns.md         Questions, blockers, and follow-up targets.

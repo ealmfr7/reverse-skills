@@ -16,6 +16,9 @@ VERIFY = SKILL / "scripts" / "verify-attestation-report.py"
 BACKEND = SKILL / "scripts" / "attestation-backend-lab.py"
 ROOT_DIFF = SKILL / "scripts" / "attestation-root-diff.py"
 REPORT = SKILL / "scripts" / "attestation-report.py"
+ROOT_SOURCE = SKILL / "scripts" / "attestation-root-source-probe.py"
+KEYSTORE_TRACE = SKILL / "scripts" / "templates" / "frida-keystore-trace.js"
+KEYMASTER_TRACE = SKILL / "scripts" / "templates" / "frida-keymaster-trace.js"
 ROUTE = ROOT / "reverse-engineering-workflow" / "scripts" / "route-reversing-task.py"
 FIXTURES = ROOT / "tests" / "fixtures" / "android-device-attestation-lab"
 
@@ -331,6 +334,85 @@ class AndroidDeviceAttestationLabTests(unittest.TestCase):
             self.assertIn("Key possession and backend trust are separate claims.", text)
             self.assertNotIn("snapchat", text.lower())
 
+    def test_root_source_probe_scans_local_images_without_bulk_dumping(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            out = Path(tmp) / "root-source.json"
+            result = subprocess.run(
+                [
+                    "python3",
+                    str(ROOT_SOURCE),
+                    "--root-diff",
+                    str(FIXTURES / "spki-match-exact-root-mismatch" / "root-diff.json"),
+                    "--local-scan-dir",
+                    str(FIXTURES / "root-source-image"),
+                    "--json-out",
+                    str(out),
+                ],
+                text=True,
+                capture_output=True,
+            )
+            self.assertEqual(result.returncode, 0, result.stderr)
+            data = json.loads(out.read_text(encoding="utf-8"))
+            self.assertEqual(data["mode"], "local")
+            self.assertTrue(data["hits"])
+            self.assertEqual(data["hits"][0]["needle"], "localRootSha256")
+            self.assertIn("metadata-only", data["policy"])
+            self.assertNotIn("snapchat", json.dumps(data).lower())
+
+    def test_frida_keystore_keymaster_templates_are_observational_and_bounded(self):
+        for template in (KEYSTORE_TRACE, KEYMASTER_TRACE):
+            text = template.read_text(encoding="utf-8")
+            self.assertIn("MAX_EVENTS", text)
+            self.assertIn("emit(", text)
+            self.assertIn("send(JSON.stringify", text)
+            lowered = text.lower()
+            self.assertNotIn("replace(", lowered)
+            self.assertNotIn("implementation =", lowered)
+            self.assertNotIn("snapchat", lowered)
+
+    def test_attestation_fixture_smoke_pipeline(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            out = Path(tmp)
+            commands = [
+                [str(PARSE), str(FIXTURES / "physical-pass" / "env-probe.json"), "--json-out", str(out / "parsed.json")],
+                [
+                    str(VERIFY),
+                    str(FIXTURES / "physical-pass" / "env-probe.json"),
+                    "--root-diff",
+                    str(FIXTURES / "physical-pass" / "root-diff.json"),
+                    "--expected-attestation-security-level",
+                    "TrustedEnvironment",
+                    "--expected-keymaster-security-level",
+                    "TrustedEnvironment",
+                    "--require-device-locked",
+                    "--json-out",
+                    str(out / "verification.json"),
+                ],
+                [
+                    str(COMPARE),
+                    str(FIXTURES / "physical-pass"),
+                    str(FIXTURES / "vmos-backend-fail"),
+                    "--json-out",
+                    str(out / "comparison.json"),
+                ],
+                [str(SUMMARY), str(FIXTURES / "vmos-backend-fail"), "--json-out", str(out / "summary.json")],
+                [
+                    str(REPORT),
+                    "--summary",
+                    str(out / "summary.json"),
+                    "--verification",
+                    str(out / "verification.json"),
+                    "--comparison",
+                    str(out / "comparison.json"),
+                    "--out",
+                    str(out / "report.md"),
+                ],
+            ]
+            for command in commands:
+                result = subprocess.run(["python3", *command], text=True, capture_output=True)
+                self.assertEqual(result.returncode, 0, result.stderr)
+            self.assertTrue((out / "report.md").exists())
+
     def test_tool_map_uses_final_generic_tool_names(self):
         text = (SKILL / "references" / "tool-map.md").read_text(encoding="utf-8").lower()
         self.assertIn("android-env-capture.py", text)
@@ -341,6 +423,9 @@ class AndroidDeviceAttestationLabTests(unittest.TestCase):
         self.assertIn("attestation-backend-lab.py", text)
         self.assertIn("attestation-root-diff.py", text)
         self.assertIn("attestation-report.py", text)
+        self.assertIn("attestation-root-source-probe.py", text)
+        self.assertIn("frida-keystore-trace.js", text)
+        self.assertIn("frida-keymaster-trace.js", text)
         self.assertNotIn("likee_device_preflight.py", text)
         self.assertNotIn("android_env_probe.py", text)
         self.assertNotIn("../", text)

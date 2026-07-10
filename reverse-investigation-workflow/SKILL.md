@@ -40,6 +40,13 @@ python3 reverse-investigation-workflow/scripts/new-run.py \
   --command "frida -U -f com.example.app -l artifacts/frida/hook.js"
 ```
 
+Create standard Android attestation run folders:
+
+```bash
+python3 reverse-investigation-workflow/scripts/init-attestation-runs.py \
+  cases/2026-07-10-target-feature
+```
+
 Build an evidence index before summarizing:
 
 ```bash

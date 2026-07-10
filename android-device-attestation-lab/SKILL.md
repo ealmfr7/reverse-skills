@@ -86,6 +86,15 @@ python3 android-device-attestation-lab/scripts/attestation-report.py \
   --out cases/<case-id>/reports/attestation-report.md
 ```
 
+Search local dumps/images for root-source evidence:
+
+```bash
+python3 android-device-attestation-lab/scripts/attestation-root-source-probe.py \
+  --root-diff cases/<case-id>/runs/0002-comparison-attestation/root-diff.json \
+  --local-scan-dir cases/<case-id>/artifacts/device-image \
+  --json-out cases/<case-id>/runs/0002-comparison-attestation/root-source.json
+```
+
 ## Workflow
 
 1. Create/select a case with `reverse-investigation-workflow`.
